@@ -62,8 +62,19 @@
     .model-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
     .model-tab{border:1px solid #c8c2b6;background:#f9f7f2;border-radius:999px;padding:11px 16px;font-weight:900;cursor:pointer}
     .model-tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
-    .model-stage{display:grid;grid-template-columns:.92fr 1.08fr;gap:22px}
-    .model-visual{background:linear-gradient(155deg,#222629,#0e1011);border-radius:30px;color:#fff;min-height:460px;padding:30px;position:relative;overflow:hidden;isolation:isolate}.model-photo-main{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}.model-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,12,13,.82) 0%,rgba(10,12,13,.50) 48%,rgba(10,12,13,.16) 100%);z-index:1}.model-code,.model-sub,.model-ghost,.model-visual>.kicker{position:relative;z-index:2}
+    .model-stage{display:grid;grid-template-columns:.92fr 1.08fr;gap:22px;align-items:start}
+    .model-gallery{min-width:0}
+    .model-visual{background:linear-gradient(155deg,#222629,#0e1011);border-radius:30px;color:#fff;min-height:460px;padding:30px;position:relative;overflow:hidden;isolation:isolate}.model-photo-main{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;transition:.2s opacity}.model-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,12,13,.82) 0%,rgba(10,12,13,.48) 48%,rgba(10,12,13,.12) 100%);z-index:1}.model-code,.model-sub,.model-ghost,.model-visual>.kicker{position:relative;z-index:2}
+    .model-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:11px}
+    .model-thumb{border:2px solid transparent;border-radius:14px;overflow:hidden;padding:0;background:#d9d6ce;cursor:pointer;aspect-ratio:4/3}
+    .model-thumb img{width:100%;height:100%;object-fit:cover}
+    .model-thumb.active{border-color:var(--ink);box-shadow:0 0 0 2px var(--green)}
+    .model-about{margin:0 0 18px;padding:17px 18px;border-radius:18px;background:#f5f2ec}
+    .model-about p{margin:0;color:#4f5659;font-size:14px}
+    .model-uses{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .use-chip{display:inline-flex;padding:7px 10px;border-radius:999px;background:#e5e1d7;font-size:11px;font-weight:850;color:#353a3d}
+    .model-application{margin:18px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:#5d6367}
+    .model-application b{color:var(--ink)}
     .model-code{font-size:clamp(78px,9vw,128px);font-weight:1000;letter-spacing:-.08em;line-height:.78;color:var(--green)}
     .model-sub{font-size:22px;font-weight:850;margin-top:18px;max-width:400px}
     .model-ghost{position:absolute;left:26px;bottom:2px;font-size:118px;font-weight:1000;letter-spacing:-.08em;color:rgba(255,255,255,.035)}
@@ -126,7 +137,7 @@
     .reveal{opacity:0;transform:translateY(18px);transition:.55s ease}.reveal.show{opacity:1;transform:none}
     @media(max-width:980px){
       .navlinks{display:none}.hero-grid,.model-stage,.tech-grid,.calc-grid,.contact-grid{grid-template-columns:1fr}
-      .hero-grid{padding-top:48px}.hero-media{min-height:440px}.strip{grid-template-columns:repeat(2,1fr)}
+      .hero-grid{padding-top:48px}.hero-media{min-height:440px}.strip{grid-template-columns:repeat(2,1fr)}.model-stage{grid-template-columns:1fr}.model-thumbs{grid-template-columns:repeat(4,1fr)}
       .section-head{grid-template-columns:110px 1fr}.grid4{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:1fr 1fr}.family-grid{grid-template-columns:repeat(2,1fr)}
       .result{position:static}
     }
@@ -134,7 +145,7 @@
       .wrap{width:min(var(--max),calc(100% - 24px))}.nav{height:64px}.navphone{display:none}.btn.navcta{display:none}
       .hero-grid{min-height:auto;gap:28px}.hero-media{min-height:300px}.hero-media img{width:100%;height:100%;right:auto;object-position:center 55%}.strip,.grid2,.grid3,.grid4,.controls,.cargo-grid,.tech-stack,.spec-grid{grid-template-columns:1fr}
       .strip div{border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}.section{padding:76px 0}.section-head{grid-template-columns:1fr}.num{font-size:54px}.family-grid{grid-template-columns:1fr}.family-photo{height:190px}
-      h2{font-size:48px}.lead{font-size:17px}.model-visual{min-height:350px}.metric{font-size:48px}.result .big{font-size:47px}
+      h2{font-size:48px}.lead{font-size:17px}.model-visual{min-height:350px}.model-thumbs{grid-template-columns:repeat(2,1fr)}.metric{font-size:48px}.result .big{font-size:47px}
     }
   </style>
 </head>
@@ -188,17 +199,21 @@
       <button class="model-tab" data-model="offset">SAT500 / вынесенная ось</button>
     </div>
     <div class="model-stage reveal">
-      <article class="model-visual">
-        <img class="model-photo-main" id="modelImage" src="https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/30a/940_640_0/o41xubrun6bkg1h46t0es04unb1t82f6.webp" alt="SAT500 3-осный, фото производителя">
-        <div class="kicker" style="color:#d7dde0">Исполнение</div>
-        <div class="model-code" id="modelCode">SAT500</div>
-        <div class="model-sub" id="modelSubtitle">3 оси · компактнее и легче</div>
-        <span class="model-chip" id="modelBadge">Задняя разгрузка</span>
-        <div class="model-ghost">SAT</div>
-      </article>
+      <div class="model-gallery">
+        <article class="model-visual">
+          <img class="model-photo-main" id="modelImage" src="https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/30a/940_640_0/o41xubrun6bkg1h46t0es04unb1t82f6.webp" alt="SAT500 3-осный, фото производителя">
+          <div class="kicker" style="color:#d7dde0">Исполнение</div>
+          <div class="model-code" id="modelCode">SAT500</div>
+          <div class="model-sub" id="modelSubtitle">3 оси · компактнее и легче</div>
+          <span class="model-chip" id="modelBadge">Задняя разгрузка</span>
+          <div class="model-ghost">SAT</div>
+        </article>
+        <div class="model-thumbs" id="modelThumbs" aria-label="Фотографии выбранной модели"></div>
+      </div>
       <article class="model-specs">
-        <div class="kicker">Характеристики производителя</div>
+        <div class="kicker">Описание и характеристики производителя</div>
         <h3 id="modelName">SAT500 · 3-осный</h3>
+        <div class="model-about"><p id="modelDescription">Лёгкий алюминиевый полуприцеп-самосвал для сельхозпродукции, сыпучих и паллетных грузов.</p><div class="model-uses" id="modelUses"></div></div>
         <div class="spec-grid">
           <div class="spec"><span>Объём</span><b id="specVolume">43–49 м³</b></div>
           <div class="spec"><span>Снаряжённая масса</span><b id="specWeight">от 6,7 т*</b></div>
@@ -207,7 +222,8 @@
           <div class="spec"><span>Длина</span><b id="specLength">10 040 мм</b></div>
           <div class="spec"><span>ССУ</span><b id="specFifth">1150 / 1350 мм</b></div>
         </div>
-        <p class="note" id="modelNote" style="margin-top:16px">* В карточке модели указано «от 6,7 т»; итоговая масса зависит от исполнения и оборудования.</p>
+        <p class="model-application" id="modelApplication"><b>Для чего:</b> перевозка зерна, сельхозпродукции, сыпучих и совместимых паллетных грузов.</p>
+        <p class="note" id="modelNote" style="margin-top:12px">* В карточке модели указано «от 6,7 т»; итоговая масса зависит от исполнения и оборудования.</p>
         <a class="source-link" id="modelSource" href="https://www.satpricep.by/catalog/polupritsepy/polupritsepy-zernovozy/polupritsep-samosvalnyy-alyuminievyy-sat199/" target="_blank" rel="noopener">Открыть карточку производителя ↗</a>
       </article>
     </div>
@@ -291,31 +307,31 @@
     <div class="family-grid reveal">
       <article class="card family-card">
         <img class="family-photo" src="https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/b10/940_640_0/hds9a3jlp7812v1qig9sihwqxyklzq82.webp" alt="SAT510, официальное фото производителя" loading="lazy">
-        <div class="kicker">Задняя + боковая разгрузка</div><div class="family-code">SAT510</div><p>Самосвальный алюминиевый полуприцеп для сельхозпродукции, сыпучих и паллетных грузов.</p>
+        <div class="kicker">Задняя + боковая разгрузка</div><div class="family-code">SAT510</div><p>Самосвальный алюминиевый полуприцеп с двумя вариантами разгрузки. <b>Используется для сельхозпродукции, зерна и других сыпучих грузов;</b> удобен там, где площадки требуют боковой выгрузки.</p>
         <div class="family-specs"><div><span>Объём</span><b>49–55 м³</b></div><div><span>Снаряжённая масса</span><b>от 7,5 т</b></div><div><span>Грузоподъёмность</span><b>до 32,5 т</b></div><div><span>Длина</span><b>11 650 мм</b></div><div><span>Оси</span><b>4</b></div><div><span>Разгрузка</span><b>задняя / боковая</b></div></div>
         <a href="https://www.satpricep.by/catalog/polupritsepy/polupritsepy-zernovozy/polupritsep-samosvalnyy-alyuminievyy-s-bokovoy-i-zadney-razgruzkoy-sat510/" target="_blank" rel="noopener">Карточка производителя ↗</a>
       </article>
       <article class="card family-card">
         <img class="family-photo" src="https://satpricep.ru/upload/dev2fun.imagecompress/webp/resize_cache/iblock/fa4/940_640_0/y9m2jhxca31yqmq4voarvv8pe5csohqb.webp" alt="SAT510 с вынесенной осью, официальное фото производителя" loading="lazy">
-        <div class="kicker">Комбинированная разгрузка + вынесенная ось</div><div class="family-code">SAT510</div><p>Версия с вынесенной передней осью для распределения нагрузки и работы с боковой и задней разгрузкой.</p>
+        <div class="kicker">Комбинированная разгрузка + вынесенная ось</div><div class="family-code">SAT510</div><p>Версия с вынесенной передней осью. <b>Используется для сельхозпродукции и сыпучих грузов,</b> когда одновременно нужны распределение нагрузки и задняя/боковая разгрузка.</p>
         <div class="family-specs"><div><span>Объём</span><b>49 / 55 / 60 м³</b></div><div><span>Снаряжённая масса</span><b>7,9–8,5 т</b></div><div><span>Грузоподъёмность</span><b>от 32,2 т</b></div><div><span>Оси</span><b>4</b></div><div><span>ССУ</span><b>1 150 мм</b></div><div><span>Разгрузка</span><b>задняя / боковая</b></div></div>
         <a href="https://satpricep.ru/catalog/polupritsepy/polupritsepy-zernovozy/polupritsep-alyuminievyy-samosvalnyy-s-zadney-i-bokovoy-razgruzkoy-sat510-i-vynesennoy-osyu/" target="_blank" rel="noopener">Карточка производителя ↗</a>
       </article>
       <article class="card family-card">
         <img class="family-photo" src="https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/b22/940_640_0/8lm4co781vsq1p7ik5lixljlwp7fxufr.webp" alt="SAT515, официальное фото производителя" loading="lazy">
-        <div class="kicker">Бортовой зерновоз</div><div class="family-code">SAT515</div><p>Большой объём, двусторонняя боковая разгрузка и возможность перевозить паллетированные грузы.</p>
+        <div class="kicker">Бортовой зерновоз</div><div class="family-code">SAT515</div><p>Большой объём и двусторонняя боковая разгрузка. <b>Используется для лёгких сельхозкультур плотностью до 0,6 т/м³ и грузов на европаллетах.</b></p>
         <div class="family-specs"><div><span>Объём</span><b>60 м³</b></div><div><span>Снаряжённая масса</span><b>8,4 т</b></div><div><span>Грузоподъёмность</span><b>до 31,6 т</b></div><div><span>Длина</span><b>13 720 мм</b></div><div><span>Оси</span><b>4</b></div><div><span>Разгрузка</span><b>боковая</b></div></div>
         <a href="https://www.satpricep.by/catalog/polupritsepy/polupritsepy-zernovozy/polupritsep-alyuminievyy-bortovoy-sat515/" target="_blank" rel="noopener">Карточка производителя ↗</a>
       </article>
       <article class="card family-card">
         <img class="family-photo" src="https://satpricep.ru/upload/dev2fun.imagecompress/webp/resize_cache/iblock/8a6/940_640_0/tsmisk24qf23z0ww7xgjf1qdowt82i4n.webp" alt="SAT545, официальное фото производителя" loading="lazy">
-        <div class="kicker">Усиленный алюминиевый самосвал</div><div class="family-code">SAT545</div><p>Модель для инертных, сельскохозяйственных и сыпучих грузов с комбинированным задним бортом.</p>
+        <div class="kicker">Усиленный алюминиевый самосвал</div><div class="family-code">SAT545</div><p>Модель с комбинированным задним бортом. <b>Используется для инертных, сельскохозяйственных и других совместимых сыпучих грузов,</b> когда важна высокая грузоподъёмность.</p>
         <div class="family-specs"><div><span>Объём</span><b>45 м³</b></div><div><span>Снаряжённая масса</span><b>8,9 т ±3%</b></div><div><span>Грузоподъёмность</span><b>48,3 т</b></div><div><span>Длина</span><b>11 560 мм</b></div><div><span>Оси</span><b>4</b></div><div><span>Разгрузка</span><b>задняя</b></div></div>
         <a href="https://satpricep.ru/catalog/polupritsepy/polupritsepy-samosvalnye/polupritsep-samosvalnyy-alyuminievyy-sat545/" target="_blank" rel="noopener">Карточка производителя ↗</a>
       </article>
       <article class="card family-card">
         <img class="family-photo" src="https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/c6f/940_640_0/rw81gcxi50z12wxl05ziqlgbdcalc137.webp" alt="SAT550, официальное фото производителя" loading="lazy">
-        <div class="kicker">Самосвальный алюминиевый полуприцеп</div><div class="family-code">SAT550</div><p>Универсальное усиленное исполнение для инертных, сельхоз и других совместимых сыпучих грузов.</p>
+        <div class="kicker">Самосвальный алюминиевый полуприцеп</div><div class="family-code">SAT550</div><p>Универсальное усиленное исполнение. <b>Используется для инертных, сельскохозяйственных и других совместимых сыпучих грузов</b> с задней самосвальной разгрузкой.</p>
         <div class="family-specs"><div><span>Объём</span><b>49 м³</b></div><div><span>Снаряжённая масса</span><b>8,5 т</b></div><div><span>Грузоподъёмность</span><b>45 т</b></div><div><span>Длина</span><b>11 650 мм</b></div><div><span>Оси</span><b>4</b></div><div><span>Разгрузка</span><b>задняя</b></div></div>
         <a href="https://www.satpricep.by/catalog/polupritsepy/polupritsepy-samosvalnye/polupritsep-samosvalnyy-alyuminievyy-sat550/" target="_blank" rel="noopener">Карточка производителя ↗</a>
       </article>
@@ -394,40 +410,76 @@
 (function(){
   const models={
     sat3:{
-      image:'https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/30a/940_640_0/o41xubrun6bkg1h46t0es04unb1t82f6.webp',
+      photos:[
+        'https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/30a/940_640_0/o41xubrun6bkg1h46t0es04unb1t82f6.webp',
+        'https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/40f/940_640_0/9tb0ti900gign5ljhd5j42j43ac466b0.webp',
+        'https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/65b/940_640_0/xxhazj61y1ofk417e1c1cqq4jea1o13b.webp',
+        'https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/9b1/940_640_0/5mkmktxpbx3nll3b70by51ye3qpgffmf.webp'
+      ],
       code:'SAT500',subtitle:'3 оси · компактнее и легче',badge:'Задняя разгрузка',name:'SAT500 · 3-осный',
+      description:'Лёгкий алюминиевый самосвальный полуприцеп для интенсивной перевозки зерна и других сыпучих грузов. Комбинированный задний борт позволяет работать и с совместимыми паллетными грузами.',
+      uses:['сельхозпродукция','сыпучие грузы','паллетные грузы','дороги / бездорожье'],
+      application:'Перевозка зерна, семян и других сельхозкультур; маршруты, где особенно важна низкая собственная масса и задняя самосвальная разгрузка.',
       volume:'43–49 м³',weight:'от 6,7 т*',payload:'20 / 30 / 40 т',axles:'3',length:'10 040 мм',fifth:'1150 / 1350 мм',
       note:'* В детальной карточке модели указано «от 6,7 т»; итоговая масса зависит от исполнения и оборудования.',
       source:'https://www.satpricep.by/catalog/polupritsepy/polupritsepy-zernovozy/polupritsep-samosvalnyy-alyuminievyy-sat199/'
     },
     sat4:{
-      image:'https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/fcd/940_640_0/br69aign1iktq4n5w8uj97bfhu8exlle.webp',
+      photos:[
+        'https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/fcd/940_640_0/br69aign1iktq4n5w8uj97bfhu8exlle.webp',
+        'https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/40f/940_640_0/9tb0ti900gign5ljhd5j42j43ac466b0.webp',
+        'https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/9b1/940_640_0/5mkmktxpbx3nll3b70by51ye3qpgffmf.webp',
+        'https://www.satpricep.by/upload/dev2fun.imagecompress/webp/resize_cache/iblock/7ed/940_640_0/rpctz6oseo0c5vr2su920hk1rkw0x2r6.webp'
+      ],
       code:'SAT500',subtitle:'4 оси · больше объём и допустимая нагрузка',badge:'Задняя разгрузка',name:'SAT500 · 4-осный',
+      description:'Четырёхосный алюминиевый зерновоз-самосвал для регулярных перевозок сыпучих сельхозкультур. Производитель отдельно указывает возможность перевозки паллетных грузов.',
+      uses:['зерновые культуры','сыпучие грузы','паллетные грузы','агрологистика'],
+      application:'Пшеница, рожь, овёс, кукуруза, рис и другие совместимые сыпучие грузы; подходит агрохолдингам, фермерам и транспортным компаниям.',
       volume:'49–55 м³',weight:'от 7,9 т',payload:'до 44 т*',axles:'4',length:'11 650 мм',fifth:'1150 / 1350 мм',
-      note:'* Значение «до 44 т» указано в детальной карточке; допустимая эксплуатационная нагрузка зависит от законодательства и распределения по осям.',
+      note:'* Допустимая эксплуатационная нагрузка зависит от законодательства, маршрута и распределения нагрузки по осям.',
       source:'https://www.satpricep.by/catalog/polupritsepy/polupritsepy-zernovozy/polupritsep-samosvalnyy-alyuminievyy-sat500/'
     },
     offset:{
-      image:'https://satpricep.ru/upload/dev2fun.imagecompress/webp/resize_cache/iblock/bcd/940_640_0/cvm7bdorz9wkg8s319vlsdynohbzcxqq.webp',
+      photos:[
+        'https://satpricep.ru/upload/dev2fun.imagecompress/webp/resize_cache/iblock/0b6/940_640_0/e9wibcadns9prozr4pelp8ldel5s5mby.webp',
+        'https://satpricep.ru/upload/dev2fun.imagecompress/webp/resize_cache/iblock/819/940_640_0/6r42duf6wzp2sq8a3onnkphofvvaq6ow.webp',
+        'https://satpricep.ru/upload/dev2fun.imagecompress/webp/resize_cache/iblock/957/940_640_0/2jtcjv6b85tkcrpj7xx0gfw3dfotdosq.webp',
+        'https://satpricep.ru/upload/dev2fun.imagecompress/webp/resize_cache/iblock/bcd/940_640_0/cvm7bdorz9wkg8s319vlsdynohbzcxqq.webp'
+      ],
       code:'SAT500',subtitle:'4 оси · первая ось вынесена',badge:'Вынесенная ось',name:'SAT500 · с вынесенной осью',
-      volume:'49–55 м³',weight:'от 7,9 т',payload:'по спецификации',axles:'4',length:'по исполнению',fifth:'от 1150 мм',
-      note:'Каталог указывает технически допустимую массу до 52,5 т, объём 49–55 м³ и снаряжённую массу от 7,9 т.',
-      source:'https://www.satpricep.by/catalog/polupritsepy/polupritsepy-zernovozy/polupritsep-samosvalnyy-alyuminievyy-s-vynesennoy-osyu-cat500/'
+      description:'Четырёхосный SAT500 с вынесенной передней осью. Такая схема рассчитана на эффективное распределение нагрузки при перевозке зерновых и других сыпучих грузов.',
+      uses:['сельхозпродукция','сыпучие грузы','паллетные грузы','весовой контроль'],
+      application:'Для зерновых перевозок на дорогах общего пользования и бездорожье, когда важны распределение нагрузки по осям, большой объём кузова и возможность работать с двухосным тягачом.',
+      volume:'49–55 м³',weight:'от 7,9 т',payload:'до 32,5 т*',axles:'4',length:'11 476 мм',fifth:'1150 / 1350 мм',
+      note:'* Каталог указывает объём 49–55 м³ и снаряжённую массу от 7,9 т; фактическая допустимая загрузка зависит от комплектации и норм маршрута.',
+      source:'https://satpricep.ru/catalog/polupritsepy/polupritsepy-zernovozy/polupritsep-samosvalnyy-alyuminievyy-s-vynesennoy-osyu/'
     }
   };
   const fields={
-    image:document.getElementById('modelImage'),code:document.getElementById('modelCode'),subtitle:document.getElementById('modelSubtitle'),badge:document.getElementById('modelBadge'),
-    name:document.getElementById('modelName'),volume:document.getElementById('specVolume'),weight:document.getElementById('specWeight'),
-    payload:document.getElementById('specPayload'),axles:document.getElementById('specAxles'),length:document.getElementById('specLength'),
+    image:document.getElementById('modelImage'),thumbs:document.getElementById('modelThumbs'),code:document.getElementById('modelCode'),subtitle:document.getElementById('modelSubtitle'),badge:document.getElementById('modelBadge'),
+    name:document.getElementById('modelName'),description:document.getElementById('modelDescription'),uses:document.getElementById('modelUses'),application:document.getElementById('modelApplication'),
+    volume:document.getElementById('specVolume'),weight:document.getElementById('specWeight'),payload:document.getElementById('specPayload'),axles:document.getElementById('specAxles'),length:document.getElementById('specLength'),
     fifth:document.getElementById('specFifth'),note:document.getElementById('modelNote'),source:document.getElementById('modelSource')
   };
+  function renderGallery(m){
+    fields.thumbs.innerHTML='';
+    m.photos.forEach((src,index)=>{
+      const button=document.createElement('button');button.type='button';button.className='model-thumb'+(index===0?' active':'');button.setAttribute('aria-label','Показать фото '+(index+1));
+      const img=document.createElement('img');img.src=src;img.alt=m.name+', фото '+(index+1);img.loading='lazy';button.appendChild(img);
+      button.addEventListener('click',()=>{fields.image.src=src;fields.thumbs.querySelectorAll('.model-thumb').forEach(x=>x.classList.remove('active'));button.classList.add('active')});
+      fields.thumbs.appendChild(button);
+    });
+  }
+  function renderModel(m){
+    fields.image.src=m.photos[0];fields.image.alt=m.name+', фото производителя';fields.code.textContent=m.code;fields.subtitle.textContent=m.subtitle;fields.badge.textContent=m.badge;fields.name.textContent=m.name;
+    fields.description.textContent=m.description;fields.uses.innerHTML=m.uses.map(x=>'<span class="use-chip">'+x+'</span>').join('');fields.application.innerHTML='<b>Для чего:</b> '+m.application;
+    fields.volume.textContent=m.volume;fields.weight.textContent=m.weight;fields.payload.textContent=m.payload;fields.axles.textContent=m.axles;fields.length.textContent=m.length;fields.fifth.textContent=m.fifth;fields.note.textContent=m.note;fields.source.href=m.source;renderGallery(m);
+  }
   document.querySelectorAll('.model-tab').forEach(btn=>btn.addEventListener('click',()=>{
     document.querySelectorAll('.model-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
-    const m=models[btn.dataset.model];
-    fields.image.src=m.image;fields.image.alt=m.name+', фото производителя';fields.code.textContent=m.code;fields.subtitle.textContent=m.subtitle;fields.badge.textContent=m.badge;fields.name.textContent=m.name;
-    fields.volume.textContent=m.volume;fields.weight.textContent=m.weight;fields.payload.textContent=m.payload;fields.axles.textContent=m.axles;
-    fields.length.textContent=m.length;fields.fifth.textContent=m.fifth;fields.note.textContent=m.note;fields.source.href=m.source;
+    const m=models[btn.dataset.model];renderModel(m);
   }));
+  renderModel(models.sat3);
 
   const ids=['extra','trips','days','rate','cost','delta','returns','returnmargin','saved','daycash'];
   const val=id=>{const n=parseFloat(document.getElementById(id).value);return Number.isFinite(n)?n:0};
