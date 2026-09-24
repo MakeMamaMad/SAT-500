@@ -141,6 +141,18 @@
     .dark .family-specs div{border-color:rgba(255,255,255,.09)}
     .family-specs b{color:inherit}
     .family-card a{margin-top:18px;font-size:12px;font-weight:900;text-decoration:none}
+    .config-section{background:#f6f3ed}
+    .config-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:22px}
+    .config-intro{background:#111416;color:#fff;border-radius:28px;padding:30px}
+    .config-intro p{color:#aeb6ba}.config-intro .note{color:#8e979b}
+    .config-panel{background:#fff;border:1px solid var(--line);border-radius:28px;padding:28px}
+    .config-model{display:grid;gap:7px;margin-bottom:18px}.config-model label{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#737a7d}
+    .config-model select{padding:12px 14px;border:1px solid #cbc5b9;border-radius:12px;background:#faf8f3}
+    .config-options{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .config-option{display:flex;gap:10px;align-items:flex-start;padding:14px;border:1px solid #ded8cc;border-radius:14px;background:#faf8f3}
+    .config-option input{margin-top:3px;accent-color:#111416}.config-option b{display:block;font-size:14px}.config-option span{display:block;color:#70767a;font-size:11px;margin-top:3px}
+    .config-summary{margin-top:18px;padding:16px;border-radius:16px;background:#ece8df;font-size:13px;color:#555c60}
+    .config-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
     .calc{background:#101214;color:#fff}
     .calc-head .lead{color:#9ea6ab}
     .calc-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:24px}
@@ -191,13 +203,13 @@
       .navlinks{display:none}.hero-grid,.model-stage,.tech-grid,.calc-grid,.contact-grid{grid-template-columns:1fr}
       .hero-grid{padding-top:48px}.hero-media{min-height:440px}.strip{grid-template-columns:repeat(2,1fr)}.model-stage{grid-template-columns:1fr}.model-thumbs{grid-template-columns:repeat(4,1fr)}
       .section-head{grid-template-columns:110px 1fr}.grid4{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:1fr 1fr}.family-grid{grid-template-columns:repeat(2,1fr)}
-      .result{position:static}.selector-grid{grid-template-columns:1fr}.mass-visual{grid-template-columns:1fr}.trust-grid{grid-template-columns:1fr}
+      .result{position:static}.selector-grid{grid-template-columns:1fr}.mass-visual{grid-template-columns:1fr}.trust-grid{grid-template-columns:1fr}.config-grid{grid-template-columns:1fr}
     }
     @media(max-width:640px){
       .wrap{width:min(var(--max),calc(100% - 24px))}.nav{height:64px}.navphone{display:none}.btn.navcta{display:none}
       .hero-grid{min-height:auto;gap:28px}.hero-media{min-height:300px}.hero-media img{width:100%;height:100%;right:auto;object-position:center 55%}.strip,.grid2,.grid3,.grid4,.controls,.cargo-grid,.tech-stack,.spec-grid{grid-template-columns:1fr}
       .strip div{border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}.section{padding:76px 0}.section-head{grid-template-columns:1fr}.num{font-size:54px}.family-grid{grid-template-columns:1fr}.family-photo{height:190px}
-      h2{font-size:48px}.trust-points{grid-template-columns:1fr}.lead{font-size:17px}.selector-models{grid-template-columns:1fr}.model-decision{grid-template-columns:1fr}.gallery-dialog-thumbs{grid-template-columns:repeat(2,1fr)}.mass-scale-row{grid-template-columns:1fr}.mass-scale-row b{text-align:left}.mass-delta strong{font-size:58px}.model-visual{min-height:350px}.model-thumbs{grid-template-columns:repeat(2,1fr)}.metric{font-size:48px}.result .big{font-size:47px}
+      h2{font-size:48px}.trust-points{grid-template-columns:1fr}.config-options{grid-template-columns:1fr}.lead{font-size:17px}.selector-models{grid-template-columns:1fr}.model-decision{grid-template-columns:1fr}.gallery-dialog-thumbs{grid-template-columns:repeat(2,1fr)}.mass-scale-row{grid-template-columns:1fr}.mass-scale-row b{text-align:left}.mass-delta strong{font-size:58px}.model-visual{min-height:350px}.model-thumbs{grid-template-columns:repeat(2,1fr)}.metric{font-size:48px}.result .big{font-size:47px}
     }
   </style>
 </head>
@@ -479,6 +491,38 @@
   </div>
 </section>
 
+<section class="section config-section" id="config">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="num">⚙</div>
+      <div><div class="kicker">Черновик комплектации</div><h2>Соберите требования до разговора с менеджером.</h2><p class="lead">Выберите интересующие узлы и опции. Блок не рассчитывает цену — он формирует понятное техническое задание для заявки.</p></div>
+    </div>
+    <div class="config-grid reveal">
+      <article class="config-intro">
+        <div class="kicker" style="color:var(--green)">Что можно уточнить заранее</div>
+        <h3>Оси, гидравлика, электроника и эксплуатационные опции.</h3>
+        <p>Наличие конкретной опции зависит от модели и исполнения. Итоговый состав подтверждается производителем в спецификации.</p>
+        <p class="note">Этот конфигуратор не является коммерческим предложением и не меняет цену автоматически.</p>
+      </article>
+      <article class="config-panel">
+        <div class="config-model"><label for="configModel">Модель</label><select id="configModel"><option>SAT500 / 3 оси</option><option>SAT500 / 4 оси</option><option>SAT500 / вынесенная ось</option><option>SAT510</option><option>SAT510 / вынесенная ось</option><option>SAT515</option><option>SAT545</option><option>SAT550</option></select></div>
+        <div class="config-options" id="configOptions">
+          <label class="config-option"><input type="checkbox" value="Оси SAF"><span><b>Оси SAF</b><span>Рассмотреть SAF в осевой группе.</span></span></label>
+          <label class="config-option"><input type="checkbox" value="Оси BPW"><span><b>Оси BPW</b><span>Альтернативный вариант осевого агрегата.</span></span></label>
+          <label class="config-option"><input type="checkbox" value="Гидроцилиндр"><span><b>Гидроцилиндр</b><span>Марка и исполнение по модели.</span></span></label>
+          <label class="config-option"><input type="checkbox" value="WABCO OptiLink"><span><b>WABCO OptiLink</b><span>Если доступно для выбранной спецификации.</span></span></label>
+          <label class="config-option"><input type="checkbox" value="SmartBoard"><span><b>SmartBoard</b><span>Индикация и сервисные функции.</span></span></label>
+          <label class="config-option"><input type="checkbox" value="Подъёмная ось"><span><b>Подъёмная ось</b><span>Схема зависит от числа осей и модели.</span></span></label>
+          <label class="config-option"><input type="checkbox" value="Тент"><span><b>Тент</b><span>Уточнить механизм и исполнение.</span></span></label>
+          <label class="config-option"><input type="checkbox" value="Клапан-ворота / шибер"><span><b>Задний борт / шибер</b><span>Вариант выгрузки под конкретный груз.</span></span></label>
+        </div>
+        <div class="config-summary" id="configSummary">Выберите опции — здесь появится краткое техническое задание.</div>
+        <div class="config-actions"><button class="btn dark" id="configToRequest" type="button">Добавить в заявку →</button><button class="btn outline" id="configReset" type="button">Сбросить</button></div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section class="section calc" id="calc">
   <div class="wrap">
     <div class="calc-head">
@@ -660,6 +704,24 @@
     const m=models[btn.dataset.model];activeModel=m;renderModel(m);
   }));
   renderModel(models.sat3);
+
+  const configInputs=[...document.querySelectorAll('#configOptions input')];
+  function configText(){
+    const chosen=configInputs.filter(x=>x.checked).map(x=>x.value);
+    return document.getElementById('configModel').value+(chosen.length?'; опции: '+chosen.join(', '):'; опции пока не выбраны');
+  }
+  function renderConfig(){document.getElementById('configSummary').textContent='ТЗ: '+configText()+'.';}
+  configInputs.forEach(x=>x.addEventListener('change',renderConfig));document.getElementById('configModel').addEventListener('change',renderConfig);
+  document.getElementById('configReset').addEventListener('click',()=>{configInputs.forEach(x=>x.checked=false);renderConfig()});
+  document.getElementById('configToRequest').addEventListener('click',()=>{
+    const model=document.getElementById('configModel').value;
+    const req=document.getElementById('requestModel');
+    [...req.options].forEach(o=>{if(o.textContent===model||model.startsWith(o.textContent))req.value=o.value});
+    const prev=document.getElementById('requestText').value.trim();
+    document.getElementById('requestText').value=(prev?prev+'\n\n':'')+'Комплектация: '+configText()+'.';
+    document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+  });
+  renderConfig();
 
   const ids=['extra','trips','days','rate','cost','delta','returns','returnmargin','saved','daycash','baselineMass'];
   const val=id=>{const n=parseFloat(document.getElementById(id).value);return Number.isFinite(n)?n:0};
