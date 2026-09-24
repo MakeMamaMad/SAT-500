@@ -124,6 +124,19 @@
     .result-row{display:flex;justify-content:space-between;gap:18px;padding:11px 0;border-bottom:1px solid rgba(0,0,0,.16);font-size:14px}
     .result-row b{text-align:right}.payback{padding-top:20px;margin-top:18px;border-top:2px solid rgba(0,0,0,.22)}
     .payback strong{display:block;font-size:38px;letter-spacing:-.045em;margin-top:4px}
+    .selector-section{padding:86px 0;background:#e9e5dc;border-bottom:1px solid var(--line)}
+    .selector-grid{display:grid;grid-template-columns:.78fr 1.22fr;gap:28px;align-items:start}
+    .selector-options{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 20px}
+    .selector-option{border:1px solid #beb8ab;background:#f8f6f0;border-radius:999px;padding:12px 16px;font-weight:900;cursor:pointer}
+    .selector-option.active{background:var(--ink);border-color:var(--ink);color:#fff}
+    .selector-result{background:#fff;border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:0 18px 50px rgba(20,22,23,.06)}
+    .selector-result h3{font-size:34px;margin:7px 0 16px}
+    .selector-models{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .selector-model{padding:16px;border-radius:16px;background:#f3f0e9;border:1px solid #e1dbcf}
+    .selector-model b{display:block;font-size:18px}
+    .selector-model span{display:block;color:#676d70;font-size:12px;margin-top:5px}
+    .selector-empty{color:#70767a;font-size:14px}
+    .selector-foot{font-size:12px;color:#70767a;margin-top:15px}
     .cargo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
     .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.chip{border:1px solid #c8c2b6;background:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:850}
     .contact{background:var(--green);padding:100px 0}
@@ -139,13 +152,13 @@
       .navlinks{display:none}.hero-grid,.model-stage,.tech-grid,.calc-grid,.contact-grid{grid-template-columns:1fr}
       .hero-grid{padding-top:48px}.hero-media{min-height:440px}.strip{grid-template-columns:repeat(2,1fr)}.model-stage{grid-template-columns:1fr}.model-thumbs{grid-template-columns:repeat(4,1fr)}
       .section-head{grid-template-columns:110px 1fr}.grid4{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:1fr 1fr}.family-grid{grid-template-columns:repeat(2,1fr)}
-      .result{position:static}
+      .result{position:static}.selector-grid{grid-template-columns:1fr}
     }
     @media(max-width:640px){
       .wrap{width:min(var(--max),calc(100% - 24px))}.nav{height:64px}.navphone{display:none}.btn.navcta{display:none}
       .hero-grid{min-height:auto;gap:28px}.hero-media{min-height:300px}.hero-media img{width:100%;height:100%;right:auto;object-position:center 55%}.strip,.grid2,.grid3,.grid4,.controls,.cargo-grid,.tech-stack,.spec-grid{grid-template-columns:1fr}
       .strip div{border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}.section{padding:76px 0}.section-head{grid-template-columns:1fr}.num{font-size:54px}.family-grid{grid-template-columns:1fr}.family-photo{height:190px}
-      h2{font-size:48px}.lead{font-size:17px}.model-visual{min-height:350px}.model-thumbs{grid-template-columns:repeat(2,1fr)}.metric{font-size:48px}.result .big{font-size:47px}
+      h2{font-size:48px}.lead{font-size:17px}.selector-models{grid-template-columns:1fr}.model-visual{min-height:350px}.model-thumbs{grid-template-columns:repeat(2,1fr)}.metric{font-size:48px}.result .big{font-size:47px}
     }
   </style>
 </head>
@@ -184,6 +197,31 @@
       <div><b>от 6,7–7,9 т*</b><span>масса по карточкам исполнений</span></div>
       <div><b>SAF / BPW / Osman Koc</b><span>варианты осевых агрегатов</span></div>
     </div>
+  </div>
+</section>
+
+<section class="selector-section" id="selector">
+  <div class="wrap selector-grid">
+    <div>
+      <div class="kicker">Подбор по задаче</div>
+      <h2>Что вы перевозите?</h2>
+      <p class="lead">Выберите сценарий — сайт подсветит модели, которые стоит рассмотреть в первую очередь. Это не автоматический заказ: итоговая конфигурация зависит от маршрута, плотности груза и ограничений по осям.</p>
+      <div class="selector-options" id="selectorOptions">
+        <button class="selector-option active" type="button" data-scenario="grain">Зерно</button>
+        <button class="selector-option" type="button" data-scenario="light">Лёгкие культуры</button>
+        <button class="selector-option" type="button" data-scenario="pallets">Паллеты</button>
+        <button class="selector-option" type="button" data-scenario="inert">Инертные грузы</button>
+        <button class="selector-option" type="button" data-scenario="side">Нужна боковая разгрузка</button>
+        <button class="selector-option" type="button" data-scenario="weight">Важен весовой контроль</button>
+      </div>
+      <a class="btn dark" href="#models">Смотреть характеристики →</a>
+    </div>
+    <aside class="selector-result" aria-live="polite">
+      <div class="kicker">Рекомендуемые к рассмотрению</div>
+      <h3 id="selectorTitle">Для зерновых перевозок</h3>
+      <div class="selector-models" id="selectorModels"></div>
+      <p class="selector-foot" id="selectorFoot">Сравните объём, массу, разгрузку и осевую схему перед выбором комплектации.</p>
+    </aside>
   </div>
 </section>
 
@@ -475,6 +513,23 @@
     fields.description.textContent=m.description;fields.uses.innerHTML=m.uses.map(x=>'<span class="use-chip">'+x+'</span>').join('');fields.application.innerHTML='<b>Для чего:</b> '+m.application;
     fields.volume.textContent=m.volume;fields.weight.textContent=m.weight;fields.payload.textContent=m.payload;fields.axles.textContent=m.axles;fields.length.textContent=m.length;fields.fifth.textContent=m.fifth;fields.note.textContent=m.note;fields.source.href=m.source;renderGallery(m);
   }
+  const selectorData={
+    grain:{title:'Для зерновых перевозок',models:[['SAT500 · 3 оси','Низкая собственная масса, задняя разгрузка'],['SAT500 · 4 оси','Больше объём и четырёхосная схема'],['SAT510','Задняя и боковая разгрузка'],['SAT515','60 м³ для лёгких культур']]},
+    light:{title:'Для лёгких сельхозкультур',models:[['SAT515','60 м³, боковая разгрузка'],['SAT500 · 4 оси','49–55 м³, универсальная схема'],['SAT510','49–55 м³ и два способа разгрузки']]},
+    pallets:{title:'Для паллетных грузов',models:[['SAT515','Бортовое исполнение и европаллеты'],['SAT500 · 3 оси','Паллетные грузы указаны в назначении модели'],['SAT500 · 4 оси','Паллеты + сыпучие грузы в одной линейке']]},
+    inert:{title:'Для инертных грузов',models:[['SAT545','Высокая грузоподъёмность, задняя разгрузка'],['SAT550','49 м³, усиленное самосвальное исполнение']]},
+    side:{title:'Когда нужна боковая разгрузка',models:[['SAT510','Задняя + боковая разгрузка'],['SAT510 · вынесенная ось','Боковая/задняя разгрузка + вынесенная ось'],['SAT515','Двусторонняя боковая разгрузка']]},
+    weight:{title:'Когда важен весовой контроль',models:[['SAT500 · вынесенная ось','Распределение нагрузки по четырём осям'],['SAT510 · вынесенная ось','Вынесенная передняя ось + комбинированная разгрузка'],['SAT500 · 3 оси','Минимальная собственная масса в линейке SAT500']]}
+  };
+  function renderSelector(key){
+    const data=selectorData[key];document.getElementById('selectorTitle').textContent=data.title;
+    document.getElementById('selectorModels').innerHTML=data.models.map(x=>'<div class="selector-model"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>').join('');
+  }
+  document.querySelectorAll('.selector-option').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('.selector-option').forEach(x=>x.classList.remove('active'));btn.classList.add('active');renderSelector(btn.dataset.scenario);
+  }));
+  renderSelector('grain');
+
   document.querySelectorAll('.model-tab').forEach(btn=>btn.addEventListener('click',()=>{
     document.querySelectorAll('.model-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
     const m=models[btn.dataset.model];renderModel(m);
