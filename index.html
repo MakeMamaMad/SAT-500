@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="SAT500 — алюминиевый самосвальный полуприцеп. Полезная нагрузка, сервис, конструкция, обратная загрузка и расчёт экономики рейса.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#151719">
+  <title>SAT500 — экономика каждого рейса</title>
+  <style>
+    :root{--ink:#17191b;--muted:#676d72;--paper:#f4f1ea;--surface:#fff;--line:#d7d2c7;--green:#bed500;--green2:#d7ea3e;--dark:#151719;--orange:#ff7a00;--radius:22px;--shadow:0 22px 70px rgba(19,22,24,.12)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,Arial,Helvetica,sans-serif;line-height:1.5}
+    a{color:inherit}
+    button,input{font:inherit}
+    .wrap{width:min(1180px,calc(100% - 40px));margin:auto}
+    .top{position:sticky;top:0;z-index:30;background:rgba(21,23,25,.94);backdrop-filter:blur(12px);color:#fff;border-bottom:1px solid rgba(255,255,255,.1)}
+    .nav{height:72px;display:flex;align-items:center;gap:28px}
+    .brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:900;letter-spacing:.06em}
+    .mark{width:38px;height:38px;border:7px solid var(--green);transform:skew(-12deg);border-radius:4px}
+    .brand small{display:block;font-size:9px;letter-spacing:.16em;color:#adb3b7;font-weight:700}
+    .links{display:flex;gap:18px;margin-left:auto;font-size:13px;color:#c7cccf}
+    .links a{text-decoration:none}.links a:hover{color:#fff}
+    .phone{text-decoration:none;font-weight:800}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border:0;border-radius:999px;background:var(--green);color:#161819;font-weight:900;text-decoration:none;cursor:pointer;transition:.2s transform,.2s background}
+    .btn:hover{transform:translateY(-1px);background:var(--green2)}
+    .btn.dark{background:var(--dark);color:#fff}.btn.dark:hover{background:#292d30}
+    .btn.ghost{background:transparent;color:inherit;border:1px solid currentColor}
+    .hero{background:var(--dark);color:#fff;overflow:hidden}
+    .hero-grid{min-height:690px;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:40px;padding:80px 0 64px}
+    .eyebrow{font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#8b9298}
+    .hero .eyebrow{color:var(--green)}
+    h1,h2,h3,p{margin-top:0}
+    h1{font-size:clamp(72px,11vw,150px);line-height:.78;letter-spacing:-.075em;margin:18px 0 34px}
+    h1 span{color:var(--green)}
+    .tag{font-size:clamp(34px,4vw,59px);font-weight:900;line-height:.95;letter-spacing:-.045em;max-width:600px}
+    .lead{font-size:20px;color:#3f4549;max-width:760px}
+    .hero .lead{color:#b6bdc2;margin-top:24px;max-width:590px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+    .hero-visual{position:relative;min-height:470px;border-radius:32px;background:linear-gradient(145deg,#292d30,#101214);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);overflow:hidden}
+    .hero-visual:before{content:"SAT500";position:absolute;left:24px;bottom:6px;font-size:88px;font-weight:1000;letter-spacing:-.08em;color:rgba(255,255,255,.05)}
+    .hero-visual img{position:absolute;width:118%;max-width:none;right:-14%;bottom:2%;filter:drop-shadow(0 24px 35px rgba(0,0,0,.35))}
+    .badge{position:absolute;top:22px;left:22px;z-index:2;background:var(--green);color:#17191b;border-radius:999px;padding:9px 13px;font-size:11px;font-weight:900;letter-spacing:.1em}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.13)}
+    .stat{padding:26px 22px;border-right:1px solid rgba(255,255,255,.13)}.stat:last-child{border:0}
+    .stat b{display:block;font-size:26px}.stat span{display:block;margin-top:4px;color:#8f979c;font-size:12px}
+    .jump{background:var(--green)}
+    .jump-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+    .jump a{padding:22px 18px;text-decoration:none;font-size:14px;font-weight:850;border-right:1px solid rgba(0,0,0,.16)}
+    .jump a:last-child{border:0}.jump i{font-style:normal;opacity:.45;margin-right:8px}
+    section.chapter{padding:110px 0;border-bottom:1px solid var(--line)}
+    .chapter-head{display:grid;grid-template-columns:140px 1fr;gap:20px;align-items:start;margin-bottom:44px}
+    .num{font-size:80px;font-weight:1000;line-height:.8;color:#c6c2b7;letter-spacing:-.08em}
+    h2{font-size:clamp(42px,6vw,82px);line-height:.96;letter-spacing:-.055em;margin:10px 0 20px}
+    h3{font-size:26px;line-height:1.08;letter-spacing:-.025em}
+    .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+    .card.dark{background:var(--dark);color:#fff;border-color:var(--dark)}
+    .card.green{background:var(--green);border-color:var(--green)}
+    .metric{font-size:54px;font-weight:1000;letter-spacing:-.06em;line-height:.9}
+    .metric small{font-size:.35em;letter-spacing:0}
+    .muted{color:var(--muted)}
+    .dark .muted{color:#a9b0b5}
+    .formula{margin:18px 0;background:#f1efe8;border-radius:14px;padding:15px 16px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+    .bars{display:grid;gap:15px;margin:24px 0}
+    .bar label{display:flex;justify-content:space-between;font-size:13px;font-weight:800}
+    .track{height:16px;background:#ece8de;border-radius:999px;overflow:hidden;margin-top:7px}.fill{height:100%;background:#4c5358;border-radius:inherit}.fill.green{background:var(--green)}
+    .table-wrap{overflow:auto;border-radius:18px;border:1px solid var(--line);background:#fff}
+    table{border-collapse:collapse;width:100%;min-width:720px}th,td{padding:15px 17px;border-bottom:1px solid #e5e0d6;text-align:left;font-size:14px}thead th{background:#1b1e20;color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.08em}tbody th{font-weight:850}.hi{background:#f1f8c9;font-weight:900}
+    .pill{display:inline-flex;align-items:center;gap:7px;border:1px solid #c8c3b8;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:800}
+    .pill:before{content:"";width:8px;height:8px;background:var(--green);border-radius:50%}
+    .calc{background:#202326;color:#fff}
+    .calc h2{color:#fff}
+    .calc-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+    .controls{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .field{background:#2b2f32;border:1px solid #3b4145;border-radius:16px;padding:14px}
+    .field label{display:block;color:#aeb5ba;font-size:12px;font-weight:750;margin-bottom:8px}
+    .field input{width:100%;background:#151719;border:1px solid #41484d;color:#fff;border-radius:10px;padding:12px 13px;outline:none}
+    .result{background:var(--green);color:#17191b;border-radius:26px;padding:30px;position:sticky;top:94px}
+    .result .big{font-size:58px;font-weight:1000;line-height:.9;letter-spacing:-.06em;margin:8px 0}
+    .line{display:flex;justify-content:space-between;gap:18px;padding:11px 0;border-bottom:1px solid rgba(0,0,0,.16);font-size:14px}.line b{text-align:right}
+    .payback{margin-top:22px;padding-top:22px;border-top:2px solid rgba(0,0,0,.25)}.payback strong{display:block;font-size:38px;letter-spacing:-.04em}
+    .note{font-size:12px;color:#767c80}
+    .sources a{word-break:break-word}
+    .versions .card{display:flex;flex-direction:column}.price{font-size:43px;font-weight:1000;letter-spacing:-.05em;margin:10px 0}.features{padding-left:18px;flex:1}.features li{margin:8px 0}
+    .contact{padding:100px 0;background:var(--green)}
+    .contact-grid{display:grid;grid-template-columns:1fr .8fr;gap:44px;align-items:start}
+    .contact h2{margin-top:0}.contact-box{background:#fff;border-radius:26px;padding:30px;box-shadow:var(--shadow)}
+    .request{display:grid;gap:12px}.request input,.request textarea{width:100%;border:1px solid #cbc6bb;border-radius:12px;padding:13px;background:#faf9f6}.request textarea{min-height:110px;resize:vertical}
+    footer{background:#121416;color:#8e959a;padding:30px 0;font-size:12px}.footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .reveal{opacity:0;transform:translateY(18px);transition:.55s ease}.reveal.show{opacity:1;transform:none}
+    @media(max-width:900px){.links{display:none}.hero-grid,.calc-grid,.contact-grid{grid-template-columns:1fr}.hero-grid{padding-top:50px}.hero-visual{min-height:390px}.stats{grid-template-columns:repeat(2,1fr)}.jump-grid{grid-template-columns:repeat(2,1fr)}.chapter-head{grid-template-columns:90px 1fr}.num{font-size:58px}.grid3{grid-template-columns:1fr 1fr}.result{position:static}}
+    @media(max-width:620px){.wrap{width:min(100% - 24px,1180px)}.nav{height:64px}.phone{display:none}.hero-grid{min-height:auto}.hero-visual{min-height:280px}.hero-visual img{width:132%;right:-25%}.stats,.jump-grid,.grid2,.grid3,.controls{grid-template-columns:1fr}.stat,.jump a{border-right:0;border-bottom:1px solid rgba(255,255,255,.12)}.jump a{border-bottom-color:rgba(0,0,0,.15)}section.chapter{padding:74px 0}.chapter-head{grid-template-columns:1fr}.num{font-size:42px}h2{font-size:45px}.lead{font-size:17px}.metric{font-size:43px}.result .big{font-size:45px}}
+  </style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top"><span class="mark"></span><span>СПЕЦАВТОТЕХНИКА<small>SAT500 / БОБРУЙСК</small></span></a>
+    <nav class="links" aria-label="Основное меню">
+      <a href="#payload">Полезная нагрузка</a>
+      <a href="#service">Сервис</a>
+      <a href="#construction">Конструкция</a>
+      <a href="#return">Обратный рейс</a>
+    </nav>
+    <a class="phone" href="tel:+79517107100">+7 (951) 710-710-0</a>
+    <a class="btn" href="#calculator">Рассчитать</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Алюминиевый самосвальный полуприцеп</div>
+        <h1>SAT<span>500</span></h1>
+        <div class="tag">Экономика каждого рейса.</div>
+        <p class="lead">Полезная нагрузка. Обслуживание. Конструкция. Обратная загрузка. Четыре вопроса, которые стоит задать до покупки полуприцепа.</p>
+        <div class="actions"><a class="btn" href="#calculator">Рассчитать окупаемость →</a><a class="btn ghost" href="#versions">Сравнить сценарии</a></div>
+      </div>
+      <figure class="hero-visual" aria-label="SAT500">
+        <span class="badge">SAT500 / АЛЮМИНИЙ</span>
+        <img src="https://satpricep.ru/upload/dev2fun.imagecompress/webp/resize_cache/iblock/07e/940_640_0/8zuqotd8emvf3nv1th4e27qhd285ovtd.webp" alt="Алюминиевый самосвальный полуприцеп SAT500" width="940" height="640" onerror="this.style.display='none'">
+      </figure>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>до 49 м³*</b><span>пример исполнения кузова</span></div>
+      <div class="stat"><b>от 7,6 т*</b><span>масса по карточке 4-осной модели</span></div>
+      <div class="stat"><b>3 / 4 оси</b><span>варианты модельного ряда</span></div>
+      <div class="stat"><b>SAF / WABCO</b><span>сценарий комплектации EURO</span></div>
+    </div>
+  </div>
+</section>
+
+<nav class="jump" aria-label="Четыре вопроса">
+  <div class="wrap jump-grid">
+    <a href="#payload"><i>01</i>Зачем возить железо?</a>
+    <a href="#service"><i>02</i>Зачем платить за простои?</a>
+    <a href="#construction"><i>03</i>Почему важна конструкция?</a>
+    <a href="#return"><i>04</i>Зачем ходить порожняком?</a>
+  </div>
+</nav>
+
+<section class="chapter" id="payload">
+  <div class="wrap">
+    <div class="chapter-head reveal"><div class="num">01</div><div><div class="eyebrow">Полезная нагрузка</div><h2>Зачем платить<br>за перевозку железа?</h2><p class="lead">Если рейс ограничен полной массой состава, более лёгкий полуприцеп может дать место дополнительному оплачиваемому грузу. Важен не лозунг, а разница масс именно ваших комплектаций.</p></div></div>
+    <div class="grid2 reveal">
+      <article class="card dark">
+        <div class="eyebrow">Сценарий сравнения</div><h3>9,6 т сталь против 7,6 т алюминий</h3>
+        <div class="bars">
+          <div class="bar"><label><span>Стальной сценарий</span><b>9,6 т</b></label><div class="track"><div class="fill" style="width:96%"></div></div></div>
+          <div class="bar"><label><span>SAT500 / сценарий</span><b>7,6 т</b></label><div class="track"><div class="fill green" style="width:76%"></div></div></div>
+        </div>
+        <p class="muted">Разница 2 т — пример для финансовой модели. Она не является универсальным преимуществом перед любым стальным полуприцепом.</p>
+      </article>
+      <article class="card green">
+        <div class="eyebrow">В модели 5 рейсов × 300 дней</div>
+        <div class="metric">до 3 000 <small>т/год</small></div>
+        <h3>дополнительного груза вместо собственного веса</h3>
+        <p>Только когда груз доступен, а маршрут и осевые ограничения позволяют использовать разницу массы.</p>
+      </article>
+    </div>
+    <div class="table-wrap reveal" style="margin-top:20px">
+      <table>
+        <thead><tr><th>Показатель</th><th>Сталь / сценарий</th><th>SAT500 / сценарий</th><th>Разница</th></tr></thead>
+        <tbody>
+          <tr><th>Собственная масса</th><td>9,6 т</td><td class="hi">7,6 т</td><td><b>−2 т</b></td></tr>
+          <tr><th>Груз за весовой рейс*</th><td>26 т</td><td class="hi">28 т</td><td><b>+2 т</b></td></tr>
+          <tr><th>Рейсов в год</th><td>900</td><td class="hi">900</td><td>—</td></tr>
+          <tr><th>Дополнительный груз</th><td>—</td><td class="hi">1 800 т</td><td><b>+1 800 т</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">* Пример расчёта, а не юридический допуск к массе состава. Фактические ограничения определяются конфигурацией, нагрузками на оси и маршрутом.</p>
+  </div>
+</section>
+
+<section class="chapter" id="service">
+  <div class="wrap">
+    <div class="chapter-head reveal"><div class="num">02</div><div><div class="eyebrow">Сервис и простои</div><h2>Зачем платить<br>за простои?</h2><p class="lead">В комплектации важны не названия брендов сами по себе, а доступность диагностики, запчастей, предсказуемость обслуживания и конкретная спецификация машины.</p></div></div>
+    <div class="grid3 reveal">
+      <article class="card"><span class="pill">WABCO / ZF</span><h3 style="margin-top:18px">Электронные функции</h3><p>TEBS, RSS, данные эксплуатации и дополнительные функции зависят от установленного оборудования и настройки. Проверяйте список опций в спецификации.</p></article>
+      <article class="card"><span class="pill">SAF</span><h3 style="margin-top:18px">Оси и ступичные узлы</h3><p>Сервисный эффект определяется конкретной осью, интервалами обслуживания, доступностью расходников и реальной эксплуатацией.</p></article>
+      <article class="card dark"><div class="eyebrow">Правильный вопрос</div><div class="metric">₽ / день</div><h3>Сколько стоит простой вашей машины?</h3><p class="muted">Эту величину лучше вводить в калькулятор своей цифрой, а не принимать рекламное обещание за готовый финансовый результат.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="construction">
+  <div class="wrap">
+    <div class="chapter-head reveal"><div class="num">03</div><div><div class="eyebrow">Конструкция</div><h2>Почему важна<br>конструкция?</h2><p class="lead">Материал кузова — лишь часть системы. Геометрия профиля, толщина, сварные соединения, рама, места концентрации напряжений и режим разгрузки работают вместе.</p></div></div>
+    <div class="grid2 reveal">
+      <article class="card">
+        <div class="eyebrow">Алюминиевый профиль</div><h3>Лёгкость должна быть инженерной</h3><p>Одинаковое слово «алюминий» не означает одинаковую прочность. Для оценки нужны марка сплава, состояние поставки, сечения профилей и расчёт конструкции.</p>
+        <div class="formula">напряжение при изгибе ~ M / W</div>
+        <p class="muted">То есть важен не только материал, но и момент сопротивления сечения.</p>
+      </article>
+      <article class="card">
+        <div class="eyebrow">Эксплуатация</div><h3>Подбирайте кузов под груз</h3><p>Зерно, гранулированные грузы, паллеты, абразивные материалы и работа на неровных площадках создают разные требования. Универсального «лучшего металла» без контекста нет.</p>
+        <div class="grid2" style="margin-top:20px"><div><b>Масса</b><p class="note">влияет на полезную нагрузку</p></div><div><b>Жёсткость</b><p class="note">задаётся материалом и геометрией</p></div><div><b>Коррозия</b><p class="note">зависит от среды и контактов металлов</p></div><div><b>Ремонт</b><p class="note">зависит от технологии и сервиса</p></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="return">
+  <div class="wrap">
+    <div class="chapter-head reveal"><div class="num">04</div><div><div class="eyebrow">Обратная загрузка</div><h2>Зачем ходить<br>порожняком?</h2><p class="lead">Если конструкция и правила перевозки позволяют брать совместимый обратный груз, экономика меняется сильнее, чем от многих технических процентов.</p></div></div>
+    <div class="grid3 reveal">
+      <article class="card green"><div class="metric">1 рейс</div><h3>туда с основным грузом</h3><p>Считаем базовую работу, которая уже есть у перевозчика.</p></article>
+      <article class="card"><div class="metric">+</div><h3>совместимый обратный груз</h3><p>Доход задаётся только вашей реальной ставкой и доступностью груза на маршруте.</p></article>
+      <article class="card dark"><div class="metric">−</div><h3>дополнительные затраты</h3><p class="muted">Погрузка, ожидание, мойка, отклонение маршрута и другие расходы должны быть вычтены отдельно.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="chapter calc" id="calculator">
+  <div class="wrap">
+    <div class="eyebrow">Интерактивная модель</div>
+    <h2>Посчитайте под свой маршрут.</h2>
+    <p class="lead" style="color:#aeb5ba">Все поля — ваши допущения. Результат не является офертой, обещанием доходности или юридическим расчётом допустимой массы.</p>
+    <div class="calc-grid">
+      <div class="controls">
+        <div class="field"><label for="extra">Доп. груз на рейс, т</label><input id="extra" type="number" min="0" step=".1" value="2"></div>
+        <div class="field"><label for="trips">Загруженных рейсов в день</label><input id="trips" type="number" min="0" step=".1" value="3"></div>
+        <div class="field"><label for="days">Рабочих дней в год</label><input id="days" type="number" min="0" max="365" value="300"></div>
+        <div class="field"><label for="rate">Тариф за доп. тонну, ₽</label><input id="rate" type="number" min="0" value="500"></div>
+        <div class="field"><label for="cost">Доп. затраты на тонну, ₽</label><input id="cost" type="number" min="0" value="100"></div>
+        <div class="field"><label for="delta">Разница цены покупки, ₽</label><input id="delta" type="number" min="0" step="10000" value="1500000"></div>
+        <div class="field"><label for="returns">Обратных загрузок в месяц</label><input id="returns" type="number" min="0" step=".1" value="0"></div>
+        <div class="field"><label for="returnmargin">Маржа обратного рейса, ₽</label><input id="returnmargin" type="number" value="0"></div>
+        <div class="field"><label for="saved">Сэкономлено дней простоя / год</label><input id="saved" type="number" min="0" step=".5" value="0"></div>
+        <div class="field"><label for="daycash">Денежный поток за рабочий день, ₽</label><input id="daycash" type="number" value="15000"></div>
+      </div>
+      <aside class="result" aria-live="polite">
+        <div class="eyebrow" style="color:#4b5200">Дополнительный денежный поток</div>
+        <div class="big" id="monthly">0 ₽</div>
+        <p>в среднем за календарный месяц</p>
+        <div class="line"><span>Доп. груз / год</span><b id="tons">0 т</b></div>
+        <div class="line"><span>Грузовой эффект / год</span><b id="cargo">0 ₽</b></div>
+        <div class="line"><span>Обратная загрузка / год</span><b id="back">0 ₽</b></div>
+        <div class="line"><span>Простои / год</span><b id="downtime">0 ₽</b></div>
+        <div class="line"><span>Итого / год</span><b id="annual">0 ₽</b></div>
+        <div class="payback"><span>Простой срок возврата разницы цены</span><strong id="payback">—</strong></div>
+        <p class="note" style="color:#4c5300">Без налогов, финансирования, дисконтирования, сезонности и остаточной стоимости.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="chapter versions" id="versions">
+  <div class="wrap">
+    <div class="chapter-head reveal"><div class="num">05</div><div><div class="eyebrow">Сценарии комплектации</div><h2>Сравнивайте<br>не название, а спецификацию.</h2><p class="lead">Цена появляется только после фиксации осей, тормозной системы, гидравлики, объёма, толщин, шин, опций и условий поставки.</p></div></div>
+    <div class="grid3 reveal">
+      <article class="card"><div class="eyebrow">BASE</div><div class="price">по КП</div><h3>Рабочая конфигурация</h3><ul class="features"><li>алюминиевый кузов</li><li>пневмоподвеска</li><li>задняя разгрузка</li><li>спецификация под маршрут</li></ul><a class="btn dark" href="#contact">Запросить КП</a></article>
+      <article class="card green"><div class="eyebrow">EURO</div><div class="price">по КП</div><h3>Сценарий SAF + WABCO</h3><ul class="features"><li>оси SAF по спецификации</li><li>тормозная система WABCO/ZF</li><li>согласованный набор электронных функций</li><li>подтверждённая сервисная схема</li></ul><a class="btn dark" href="#contact">Уточнить состав</a></article>
+      <article class="card dark"><div class="eyebrow">CUSTOM</div><div class="price">по задаче</div><h3>Под конкретную экономику</h3><ul class="features"><li>3 или 4 оси</li><li>объём под плотность груза</li><li>опции под обратную загрузку</li><li>лизинг и график поставки</li></ul><a class="btn" href="#contact">Собрать запрос</a></article>
+    </div>
+  </div>
+</section>
+
+<section class="chapter sources">
+  <div class="wrap">
+    <div class="eyebrow">Источники и методика</div>
+    <h2>Факты отдельно.<br>Допущения отдельно.</h2>
+    <div class="grid2">
+      <article class="card"><h3>Производитель SAT500</h3><p><a href="https://satpricep.ru/catalog/polupritsepy/polupritsepy-zernovozy/polupritsep-samosvalnyy-alyuminievyy-sat500/" target="_blank" rel="noopener">Карточка SAT500 ↗</a></p><p class="muted">Массу, объём, оси и опции следует сверять с актуальной коммерческой спецификацией конкретной машины.</p></article>
+      <article class="card"><h3>Компоненты и инженерные данные</h3><p><a href="https://www.wabco-customercentre.com/catalog/docs/8150200933.pdf" target="_blank" rel="noopener">WABCO TEBS-E ↗</a><br><a href="https://safholland.com/de/en/products/saf-intradrum" target="_blank" rel="noopener">SAF-HOLLAND ↗</a><br><a href="https://www.hydro.com/Document/Index?id=7566&name=Hydro+EN+AW+6063" target="_blank" rel="noopener">Hydro, алюминиевые сплавы ↗</a></p><p class="muted">Ссылки подтверждают свойства соответствующих систем и материалов, но не заменяют сертификат или спецификацию SAT500.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap contact-grid">
+    <div><div class="eyebrow" style="color:#4e5600">Следующий шаг</div><h2>Соберём расчёт<br>под ваш маршрут.</h2><p class="lead">Подготовьте груз, среднюю плотность, число рейсов, плечо, ограничения маршрута и желаемую комплектацию. Чем точнее исходные данные — тем полезнее сравнение.</p><p><b>Телефон:</b> <a href="tel:+79517107100">+7 (951) 710-710-0</a></p></div>
+    <div class="contact-box">
+      <form class="request" id="requestForm">
+        <label>Компания / имя<input id="name" autocomplete="name"></label>
+        <label>Телефон или email<input id="reply" autocomplete="email"></label>
+        <label>Что перевозите<textarea id="cargoText" placeholder="Груз, рейсов в день, маршрут, желаемая комплектация"></textarea></label>
+        <button class="btn dark" type="submit">Скопировать текст запроса</button>
+        <div class="note" id="formStatus">Данные никуда не отправляются: кнопка формирует текст в буфере обмена.</div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap footer"><span>© SAT500 / веб-концепт на основе материалов проекта.</span><span>Финансовые сценарии не являются публичной офертой или гарантией доходности.</span></div></footer>
+
+<script>
+(function(){
+  var ids=['extra','trips','days','rate','cost','delta','returns','returnmargin','saved','daycash'];
+  function val(id){var n=parseFloat(document.getElementById(id).value);return Number.isFinite(n)?n:0}
+  function money(n){return Math.round(n).toLocaleString('ru-RU')+' ₽'}
+  function calc(){
+    var tons=val('extra')*val('trips')*val('days');
+    var cargo=tons*(val('rate')-val('cost'));
+    var back=val('returns')*12*val('returnmargin');
+    var down=val('saved')*val('daycash');
+    var annual=cargo+back+down;
+    var monthly=annual/12;
+    var delta=val('delta');
+    document.getElementById('tons').textContent=Math.round(tons).toLocaleString('ru-RU')+' т';
+    document.getElementById('cargo').textContent=money(cargo);
+    document.getElementById('back').textContent=money(back);
+    document.getElementById('downtime').textContent=money(down);
+    document.getElementById('annual').textContent=money(annual);
+    document.getElementById('monthly').textContent=money(monthly);
+    document.getElementById('payback').textContent=annual>0?(delta/(annual/12)).toFixed(1).replace('.',',')+' мес.':'—';
+  }
+  ids.forEach(function(id){document.getElementById(id).addEventListener('input',calc)});
+  calc();
+
+  var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('show')})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+
+  document.getElementById('requestForm').addEventListener('submit',async function(e){
+    e.preventDefault();
+    var text='Запрос по SAT500\nИмя/компания: '+document.getElementById('name').value+'\nКонтакт: '+document.getElementById('reply').value+'\nЗадача: '+document.getElementById('cargoText').value+'\n\nРасчёт на сайте: '+document.getElementById('annual').textContent+' дополнительного потока в год; срок возврата: '+document.getElementById('payback').textContent+'.';
+    try{await navigator.clipboard.writeText(text);document.getElementById('formStatus').textContent='Текст запроса скопирован. Отправьте его менеджеру удобным способом.'}
+    catch(err){document.getElementById('formStatus').textContent=text}
+  });
+})();
+</script>
+</body>
+</html>
