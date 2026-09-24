@@ -168,6 +168,16 @@
     .selector-foot{font-size:12px;color:#70767a;margin-top:15px}
     .cargo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
     .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.chip{border:1px solid #c8c2b6;background:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:850}
+    .trust{background:#ece9e1}
+    .trust-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px}
+    .trust-main{background:#111416;color:#fff;border-radius:28px;padding:32px}
+    .trust-main h3{font-size:40px;margin:12px 0 18px}.trust-main p{color:#b4bcc0}
+    .trust-points{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:24px}
+    .trust-point{padding:18px;border-radius:16px;background:#202427;border:1px solid #30363a}
+    .trust-point b{display:block;font-size:17px}.trust-point span{display:block;color:#a8b0b4;font-size:12px;margin-top:6px}
+    .trust-side{display:grid;gap:14px}
+    .trust-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px}
+    .trust-card strong{display:block;font-size:28px;letter-spacing:-.04em}.trust-card p{font-size:13px;color:#666d70;margin:9px 0 0}
     .contact{background:var(--green);padding:100px 0}
     .contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:46px}
     .formbox{background:#fff;border-radius:28px;padding:30px;box-shadow:var(--shadow)}
@@ -181,13 +191,13 @@
       .navlinks{display:none}.hero-grid,.model-stage,.tech-grid,.calc-grid,.contact-grid{grid-template-columns:1fr}
       .hero-grid{padding-top:48px}.hero-media{min-height:440px}.strip{grid-template-columns:repeat(2,1fr)}.model-stage{grid-template-columns:1fr}.model-thumbs{grid-template-columns:repeat(4,1fr)}
       .section-head{grid-template-columns:110px 1fr}.grid4{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:1fr 1fr}.family-grid{grid-template-columns:repeat(2,1fr)}
-      .result{position:static}.selector-grid{grid-template-columns:1fr}.mass-visual{grid-template-columns:1fr}
+      .result{position:static}.selector-grid{grid-template-columns:1fr}.mass-visual{grid-template-columns:1fr}.trust-grid{grid-template-columns:1fr}
     }
     @media(max-width:640px){
       .wrap{width:min(var(--max),calc(100% - 24px))}.nav{height:64px}.navphone{display:none}.btn.navcta{display:none}
       .hero-grid{min-height:auto;gap:28px}.hero-media{min-height:300px}.hero-media img{width:100%;height:100%;right:auto;object-position:center 55%}.strip,.grid2,.grid3,.grid4,.controls,.cargo-grid,.tech-stack,.spec-grid{grid-template-columns:1fr}
       .strip div{border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}.section{padding:76px 0}.section-head{grid-template-columns:1fr}.num{font-size:54px}.family-grid{grid-template-columns:1fr}.family-photo{height:190px}
-      h2{font-size:48px}.lead{font-size:17px}.selector-models{grid-template-columns:1fr}.model-decision{grid-template-columns:1fr}.gallery-dialog-thumbs{grid-template-columns:repeat(2,1fr)}.mass-scale-row{grid-template-columns:1fr}.mass-scale-row b{text-align:left}.mass-delta strong{font-size:58px}.model-visual{min-height:350px}.model-thumbs{grid-template-columns:repeat(2,1fr)}.metric{font-size:48px}.result .big{font-size:47px}
+      h2{font-size:48px}.trust-points{grid-template-columns:1fr}.lead{font-size:17px}.selector-models{grid-template-columns:1fr}.model-decision{grid-template-columns:1fr}.gallery-dialog-thumbs{grid-template-columns:repeat(2,1fr)}.mass-scale-row{grid-template-columns:1fr}.mass-scale-row b{text-align:left}.mass-delta strong{font-size:58px}.model-visual{min-height:350px}.model-thumbs{grid-template-columns:repeat(2,1fr)}.metric{font-size:48px}.result .big{font-size:47px}
     }
   </style>
 </head>
@@ -439,6 +449,33 @@
       </article>
     </div>
     <p class="note" style="margin-top:14px">* Параметры зависят от конкретного исполнения; перед заказом сверяйте актуальную спецификацию и коммерческое предложение производителя.</p>
+  </div>
+</section>
+
+<section class="section trust" id="trust">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="num">✓</div>
+      <div><div class="kicker">Завод и сопровождение</div><h2>Техника — это не только кузов и оси.</h2><p class="lead">При выборе важны возможность собрать спецификацию под задачу, доступность комплектующих и понятный сервис после покупки.</p></div>
+    </div>
+    <div class="trust-grid reveal">
+      <article class="trust-main">
+        <div class="kicker" style="color:var(--green)">Спецавтотехника / Бобруйск</div>
+        <h3>Конфигурация под конкретную перевозку.</h3>
+        <p>На сайте производителя указаны работа по техническому заданию клиента, выбор комплектующих, заводская гарантия и отдельные направления ремонта, обслуживания и запчастей.</p>
+        <div class="trust-points">
+          <div class="trust-point"><b>Работа по ТЗ</b><span>Исполнение под груз, маршрут и требования заказчика.</span></div>
+          <div class="trust-point"><b>Выбор комплектующих</b><span>В карточках моделей доступны разные оси, гидравлика и электронные системы.</span></div>
+          <div class="trust-point"><b>Гарантийное обслуживание</b><span>Производитель выделяет гарантийное обслуживание отдельным направлением.</span></div>
+          <div class="trust-point"><b>Запчасти и ремонт</b><span>На сайте есть разделы ремонта и запасных частей для прицепной техники SAT.</span></div>
+        </div>
+      </article>
+      <div class="trust-side">
+        <article class="trust-card"><div class="kicker">Производство / РБ</div><strong>Бобруйск</strong><p>Могилёвская область, ул. К. Либкнехта, 6 — адрес, указанный на сайте производителя.</p></article>
+        <article class="trust-card"><div class="kicker">Комплектующие</div><strong>SAF · BPW · WABCO</strong><p>Конкретный набор зависит от модели и заказанной комплектации.</p></article>
+        <article class="trust-card"><div class="kicker">Связь</div><strong>РФ + РБ</strong><p>На странице оставлены телефоны отделов продаж и email производителя для уточнения спецификации.</p></article>
+      </div>
+    </div>
   </div>
 </section>
 
