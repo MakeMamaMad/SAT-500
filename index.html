@@ -85,6 +85,15 @@
     .spec span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:850}
     .spec b{display:block;margin-top:5px;font-size:21px}
     .source-link{display:inline-flex;margin-top:18px;font-size:13px;font-weight:900;text-decoration:none;border-bottom:1px solid}
+    .compare-wrap{overflow:auto;border:1px solid var(--line);border-radius:24px;background:#fff}
+    .compare-table{width:100%;border-collapse:collapse;min-width:1040px}
+    .compare-table th,.compare-table td{padding:16px 18px;border-bottom:1px solid #e5e0d6;border-right:1px solid #ece7de;text-align:left;vertical-align:top}
+    .compare-table th:last-child,.compare-table td:last-child{border-right:0}.compare-table tr:last-child td{border-bottom:0}
+    .compare-table thead th{position:sticky;top:0;background:#15181a;color:#fff;font-size:12px;letter-spacing:.05em;z-index:1}
+    .compare-table tbody th{background:#f3f0e9;font-size:14px;min-width:180px}
+    .compare-table td{font-size:13px;color:#555c60}
+    .compare-table td strong{display:block;color:#15181a;font-size:15px}
+    .compare-note{margin-top:14px;font-size:12px;color:#70767a}
     .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
     .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
@@ -265,6 +274,31 @@
         <a class="source-link" id="modelSource" href="https://www.satpricep.by/catalog/polupritsepy/polupritsepy-zernovozy/polupritsep-samosvalnyy-alyuminievyy-sat199/" target="_blank" rel="noopener">Открыть карточку производителя ↗</a>
       </article>
     </div>
+  </div>
+</section>
+
+<section class="section" id="compare">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="num">↔</div>
+      <div><div class="kicker">Сравнение линейки</div><h2>Все основные модели — в одной таблице.</h2><p class="lead">Сначала сравните назначение и конструкцию, затем уже переходите к цене и комплектации.</p></div>
+    </div>
+    <div class="compare-wrap reveal" role="region" aria-label="Сравнение моделей SAT" tabindex="0">
+      <table class="compare-table">
+        <thead><tr><th>Модель</th><th>Назначение</th><th>Объём</th><th>Снаряжённая масса</th><th>Грузоподъёмность</th><th>Оси</th><th>Разгрузка</th><th>ССУ / длина</th></tr></thead>
+        <tbody>
+          <tr><th>SAT500 · 3 оси</th><td>Зерно, сельхоз, сыпучие, паллеты</td><td><strong>43–49 м³</strong></td><td>от 6,7 т</td><td>20 / 30 / 40 т</td><td>3</td><td>задняя</td><td>1150 / 1350 мм · 10 040 мм</td></tr>
+          <tr><th>SAT500 · 4 оси</th><td>Зерно, сыпучие, паллеты</td><td><strong>49–55 м³</strong></td><td>от 7,9 т</td><td>по спецификации</td><td>4</td><td>задняя</td><td>1150 / 1350 мм · 11 650 мм</td></tr>
+          <tr><th>SAT500 · вынесенная ось</th><td>Зерно, сыпучие, весовой контроль</td><td><strong>49–55 м³</strong></td><td>от 7,9 т</td><td>до 32,5 т*</td><td>4</td><td>задняя</td><td>1150 / 1350 мм · 11 476 мм</td></tr>
+          <tr><th>SAT510</th><td>Сельхоз и сыпучие, нужна боковая выгрузка</td><td><strong>49–55 м³</strong></td><td>от 7,5 т</td><td>до 32,5 т</td><td>4</td><td>задняя / боковая</td><td>по комплектации · 11 650 мм</td></tr>
+          <tr><th>SAT510 · вынесенная ось</th><td>Сельхоз, сыпучие, весовой контроль</td><td><strong>49 / 55 / 60 м³</strong></td><td>7,9–8,5 т</td><td>от 32,2 т</td><td>4</td><td>задняя / боковая</td><td>1150 мм · 11 650 мм</td></tr>
+          <tr><th>SAT515</th><td>Лёгкие культуры и европаллеты</td><td><strong>60 м³</strong></td><td>8,4 т</td><td>до 31,6 т</td><td>4</td><td>боковая</td><td>1150 мм · 13 720 мм</td></tr>
+          <tr><th>SAT545</th><td>Инертные и тяжёлые сыпучие грузы</td><td><strong>45 м³</strong></td><td>8,9 т ±3%</td><td>48,3 т</td><td>4</td><td>задняя</td><td>по спецификации · 11 560 мм</td></tr>
+          <tr><th>SAT550</th><td>Инертные, сельхоз и сыпучие грузы</td><td><strong>49 м³</strong></td><td>8,5 т</td><td>45 т</td><td>4</td><td>задняя</td><td>по спецификации · 11 650 мм</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="compare-note">* Публичные карточки содержат данные для разных исполнений. Перед заказом сверяйте итоговую спецификацию, допустимую массу состава и нагрузки по осям для конкретного маршрута.</p>
   </div>
 </section>
 
