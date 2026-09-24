@@ -75,6 +75,19 @@
     .use-chip{display:inline-flex;padding:7px 10px;border-radius:999px;background:#e5e1d7;font-size:11px;font-weight:850;color:#353a3d}
     .model-application{margin:18px 0 0;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:#5d6367}
     .model-application b{color:var(--ink)}
+    .model-decision{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+    .model-decision>div{padding:15px;border-radius:15px;background:#f5f2ec}
+    .model-decision span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:900;color:#777d80}
+    .model-decision b{display:block;margin-top:6px;font-size:14px;line-height:1.35}
+    .gallery-open{width:100%;margin-top:10px;background:#fff;border:1px solid #c8c2b6;border-radius:14px;padding:11px 14px;font-weight:900;cursor:pointer}
+    .gallery-dialog{border:0;border-radius:24px;padding:0;width:min(980px,calc(100% - 28px));max-height:90vh;background:#111416;color:#fff;box-shadow:0 32px 100px rgba(0,0,0,.45)}
+    .gallery-dialog::backdrop{background:rgba(0,0,0,.72);backdrop-filter:blur(5px)}
+    .gallery-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border-bottom:1px solid #303538}
+    .gallery-dialog-head b{font-size:20px}.gallery-close{border:0;background:#2a2f32;color:#fff;width:40px;height:40px;border-radius:50%;font-size:22px;cursor:pointer}
+    .gallery-dialog-main{padding:18px}.gallery-dialog-main>img{width:100%;max-height:62vh;object-fit:contain;border-radius:16px;background:#202427}
+    .gallery-dialog-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}
+    .gallery-dialog-thumbs button{padding:0;border:2px solid transparent;border-radius:10px;overflow:hidden;background:#202427;cursor:pointer;aspect-ratio:4/3}
+    .gallery-dialog-thumbs button.active{border-color:var(--green)}.gallery-dialog-thumbs img{width:100%;height:100%;object-fit:cover}
     .model-code{font-size:clamp(78px,9vw,128px);font-weight:1000;letter-spacing:-.08em;line-height:.78;color:var(--green)}
     .model-sub{font-size:22px;font-weight:850;margin-top:18px;max-width:400px}
     .model-ghost{position:absolute;left:26px;bottom:2px;font-size:118px;font-weight:1000;letter-spacing:-.08em;color:rgba(255,255,255,.035)}
@@ -167,7 +180,7 @@
       .wrap{width:min(var(--max),calc(100% - 24px))}.nav{height:64px}.navphone{display:none}.btn.navcta{display:none}
       .hero-grid{min-height:auto;gap:28px}.hero-media{min-height:300px}.hero-media img{width:100%;height:100%;right:auto;object-position:center 55%}.strip,.grid2,.grid3,.grid4,.controls,.cargo-grid,.tech-stack,.spec-grid{grid-template-columns:1fr}
       .strip div{border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}.section{padding:76px 0}.section-head{grid-template-columns:1fr}.num{font-size:54px}.family-grid{grid-template-columns:1fr}.family-photo{height:190px}
-      h2{font-size:48px}.lead{font-size:17px}.selector-models{grid-template-columns:1fr}.model-visual{min-height:350px}.model-thumbs{grid-template-columns:repeat(2,1fr)}.metric{font-size:48px}.result .big{font-size:47px}
+      h2{font-size:48px}.lead{font-size:17px}.selector-models{grid-template-columns:1fr}.model-decision{grid-template-columns:1fr}.gallery-dialog-thumbs{grid-template-columns:repeat(2,1fr)}.model-visual{min-height:350px}.model-thumbs{grid-template-columns:repeat(2,1fr)}.metric{font-size:48px}.result .big{font-size:47px}
     }
   </style>
 </head>
@@ -256,6 +269,7 @@
           <div class="model-ghost">SAT</div>
         </article>
         <div class="model-thumbs" id="modelThumbs" aria-label="Фотографии выбранной модели"></div>
+        <button class="gallery-open" id="galleryOpen" type="button">Развернуть все фотографии ↗</button>
       </div>
       <article class="model-specs">
         <div class="kicker">Описание и характеристики производителя</div>
@@ -270,6 +284,7 @@
           <div class="spec"><span>ССУ</span><b id="specFifth">1150 / 1350 мм</b></div>
         </div>
         <p class="model-application" id="modelApplication"><b>Для чего:</b> перевозка зерна, сельхозпродукции, сыпучих и совместимых паллетных грузов.</p>
+        <div class="model-decision"><div><span>Главное преимущество</span><b id="modelAdvantage">Низкая собственная масса.</b></div><div><span>Когда смотреть другую модель</span><b id="modelAlternative">Если нужен больший объём или боковая разгрузка.</b></div></div>
         <p class="note" id="modelNote" style="margin-top:12px">* В карточке модели указано «от 6,7 т»; итоговая масса зависит от исполнения и оборудования.</p>
         <a class="source-link" id="modelSource" href="https://www.satpricep.by/catalog/polupritsepy/polupritsepy-zernovozy/polupritsep-samosvalnyy-alyuminievyy-sat199/" target="_blank" rel="noopener">Открыть карточку производителя ↗</a>
       </article>
@@ -471,6 +486,11 @@
 </section>
 </main>
 
+<dialog class="gallery-dialog" id="galleryDialog">
+  <div class="gallery-dialog-head"><b id="galleryTitle">Фотографии SAT500</b><button class="gallery-close" id="galleryClose" type="button" aria-label="Закрыть">×</button></div>
+  <div class="gallery-dialog-main"><img id="galleryMain" alt="Фото выбранной модели"><div class="gallery-dialog-thumbs" id="galleryDialogThumbs"></div></div>
+</dialog>
+
 <footer>
   <div class="wrap footer">
     <span>Данные по моделям: публичный каталог SATPRICEP, 2026.</span>
@@ -492,6 +512,8 @@
       description:'Лёгкий алюминиевый самосвальный полуприцеп для интенсивной перевозки зерна и других сыпучих грузов. Комбинированный задний борт позволяет работать и с совместимыми паллетными грузами.',
       uses:['сельхозпродукция','сыпучие грузы','паллетные грузы','дороги / бездорожье'],
       application:'Перевозка зерна, семян и других сельхозкультур; маршруты, где особенно важна низкая собственная масса и задняя самосвальная разгрузка.',
+      advantage:'Минимальная собственная масса среди показанных SAT500 и простая задняя разгрузка.',
+      alternative:'Если нужен кузов до 55 м³, 4 оси или боковая разгрузка — смотрите SAT500 4 оси или SAT510.',
       volume:'43–49 м³',weight:'от 6,7 т*',payload:'20 / 30 / 40 т',axles:'3',length:'10 040 мм',fifth:'1150 / 1350 мм',
       note:'* В детальной карточке модели указано «от 6,7 т»; итоговая масса зависит от исполнения и оборудования.',
       source:'https://www.satpricep.by/catalog/polupritsepy/polupritsepy-zernovozy/polupritsep-samosvalnyy-alyuminievyy-sat199/'
@@ -507,6 +529,8 @@
       description:'Четырёхосный алюминиевый зерновоз-самосвал для регулярных перевозок сыпучих сельхозкультур. Производитель отдельно указывает возможность перевозки паллетных грузов.',
       uses:['зерновые культуры','сыпучие грузы','паллетные грузы','агрологистика'],
       application:'Пшеница, рожь, овёс, кукуруза, рис и другие совместимые сыпучие грузы; подходит агрохолдингам, фермерам и транспортным компаниям.',
+      advantage:'Больший объём кузова и четырёхосная схема при сохранении алюминиевой конструкции.',
+      alternative:'Если приоритет — минимальный собственный вес, сравните с 3-осным SAT500; если нужна боковая разгрузка — SAT510.',
       volume:'49–55 м³',weight:'от 7,9 т',payload:'до 44 т*',axles:'4',length:'11 650 мм',fifth:'1150 / 1350 мм',
       note:'* Допустимая эксплуатационная нагрузка зависит от законодательства, маршрута и распределения нагрузки по осям.',
       source:'https://www.satpricep.by/catalog/polupritsepy/polupritsepy-zernovozy/polupritsep-samosvalnyy-alyuminievyy-sat500/'
@@ -522,6 +546,8 @@
       description:'Четырёхосный SAT500 с вынесенной передней осью. Такая схема рассчитана на эффективное распределение нагрузки при перевозке зерновых и других сыпучих грузов.',
       uses:['сельхозпродукция','сыпучие грузы','паллетные грузы','весовой контроль'],
       application:'Для зерновых перевозок на дорогах общего пользования и бездорожье, когда важны распределение нагрузки по осям, большой объём кузова и возможность работать с двухосным тягачом.',
+      advantage:'Вынесенная передняя ось помогает распределять нагрузку по осевой группе.',
+      alternative:'Если вынесенная ось не нужна, обычный 4-осный SAT500 проще; для боковой разгрузки смотрите SAT510 с вынесенной осью.',
       volume:'49–55 м³',weight:'от 7,9 т',payload:'до 32,5 т*',axles:'4',length:'11 476 мм',fifth:'1150 / 1350 мм',
       note:'* Каталог указывает объём 49–55 м³ и снаряжённую массу от 7,9 т; фактическая допустимая загрузка зависит от комплектации и норм маршрута.',
       source:'https://satpricep.ru/catalog/polupritsepy/polupritsepy-zernovozy/polupritsep-samosvalnyy-alyuminievyy-s-vynesennoy-osyu/'
@@ -529,7 +555,7 @@
   };
   const fields={
     image:document.getElementById('modelImage'),thumbs:document.getElementById('modelThumbs'),code:document.getElementById('modelCode'),subtitle:document.getElementById('modelSubtitle'),badge:document.getElementById('modelBadge'),
-    name:document.getElementById('modelName'),description:document.getElementById('modelDescription'),uses:document.getElementById('modelUses'),application:document.getElementById('modelApplication'),
+    name:document.getElementById('modelName'),description:document.getElementById('modelDescription'),uses:document.getElementById('modelUses'),application:document.getElementById('modelApplication'),advantage:document.getElementById('modelAdvantage'),alternative:document.getElementById('modelAlternative'),
     volume:document.getElementById('specVolume'),weight:document.getElementById('specWeight'),payload:document.getElementById('specPayload'),axles:document.getElementById('specAxles'),length:document.getElementById('specLength'),
     fifth:document.getElementById('specFifth'),note:document.getElementById('modelNote'),source:document.getElementById('modelSource')
   };
@@ -544,7 +570,7 @@
   }
   function renderModel(m){
     fields.image.src=m.photos[0];fields.image.alt=m.name+', фото производителя';fields.code.textContent=m.code;fields.subtitle.textContent=m.subtitle;fields.badge.textContent=m.badge;fields.name.textContent=m.name;
-    fields.description.textContent=m.description;fields.uses.innerHTML=m.uses.map(x=>'<span class="use-chip">'+x+'</span>').join('');fields.application.innerHTML='<b>Для чего:</b> '+m.application;
+    fields.description.textContent=m.description;fields.uses.innerHTML=m.uses.map(x=>'<span class="use-chip">'+x+'</span>').join('');fields.application.innerHTML='<b>Для чего:</b> '+m.application;fields.advantage.textContent=m.advantage;fields.alternative.textContent=m.alternative;
     fields.volume.textContent=m.volume;fields.weight.textContent=m.weight;fields.payload.textContent=m.payload;fields.axles.textContent=m.axles;fields.length.textContent=m.length;fields.fifth.textContent=m.fifth;fields.note.textContent=m.note;fields.source.href=m.source;renderGallery(m);
   }
   const selectorData={
@@ -564,9 +590,20 @@
   }));
   renderSelector('grain');
 
+  const galleryDialog=document.getElementById('galleryDialog'),galleryMain=document.getElementById('galleryMain'),galleryDialogThumbs=document.getElementById('galleryDialogThumbs');
+  let activeModel=models.sat3;
+  function fillDialog(m){
+    activeModel=m;document.getElementById('galleryTitle').textContent='Фотографии '+m.name;galleryMain.src=m.photos[0];galleryMain.alt=m.name+', фото производителя';
+    galleryDialogThumbs.innerHTML='';
+    m.photos.forEach((src,index)=>{const b=document.createElement('button');b.type='button';b.className=index===0?'active':'';const im=document.createElement('img');im.src=src;im.alt=m.name+', фото '+(index+1);b.appendChild(im);b.addEventListener('click',()=>{galleryMain.src=src;galleryDialogThumbs.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active')});galleryDialogThumbs.appendChild(b)});
+  }
+  document.getElementById('galleryOpen').addEventListener('click',()=>{fillDialog(activeModel);galleryDialog.showModal()});
+  document.getElementById('galleryClose').addEventListener('click',()=>galleryDialog.close());
+  galleryDialog.addEventListener('click',e=>{if(e.target===galleryDialog)galleryDialog.close()});
+
   document.querySelectorAll('.model-tab').forEach(btn=>btn.addEventListener('click',()=>{
     document.querySelectorAll('.model-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
-    const m=models[btn.dataset.model];renderModel(m);
+    const m=models[btn.dataset.model];activeModel=m;renderModel(m);
   }));
   renderModel(models.sat3);
 
