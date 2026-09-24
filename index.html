@@ -17,7 +17,11 @@
     html{scroll-behavior:smooth}
     body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,Arial,Helvetica,sans-serif;line-height:1.45}
     a{color:inherit}button,input,select,textarea{font:inherit}
+    button,input,select,textarea,a{-webkit-tap-highlight-color:transparent}
+    :focus-visible{outline:3px solid var(--green);outline-offset:3px}
     img{max-width:100%;display:block}
+    body{overflow-x:hidden}
+    section[id]{scroll-margin-top:88px}
     .wrap{width:min(var(--max),calc(100% - 40px));margin:auto}
     .topbar{position:sticky;top:0;z-index:50;background:rgba(16,18,20,.94);backdrop-filter:blur(16px);color:#fff;border-bottom:1px solid rgba(255,255,255,.09)}
     .nav{height:72px;display:flex;align-items:center;gap:26px}
@@ -30,6 +34,7 @@
     .navphone{font-size:13px;font-weight:900;text-decoration:none}
     .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;border:0;background:var(--green);color:#111315;text-decoration:none;font-weight:950;cursor:pointer;transition:.18s transform,.18s background}
     .btn:hover{transform:translateY(-1px);background:var(--green2)}
+    .btn:active{transform:translateY(0)}
     .btn.dark{background:var(--ink);color:#fff}.btn.dark:hover{background:#292e31}
     .btn.outline{background:transparent;border:1px solid currentColor;color:inherit}
     .hero{background:var(--ink);color:#fff;overflow:hidden;position:relative}
@@ -44,11 +49,11 @@
     .lead{font-size:19px;color:#4b5155;max-width:780px}
     .hero .lead{color:#aeb6bb;margin-top:24px;max-width:610px}
     .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
-    .hero-media{min-height:560px;position:relative;border-radius:34px;overflow:hidden;background:linear-gradient(145deg,#303538,#121416);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+    .hero-media{min-height:560px;position:relative;border-radius:30px;overflow:hidden;background:linear-gradient(145deg,#303538,#121416);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 24px 70px rgba(0,0,0,.18)}
     .hero-media:before{content:"ALUMINIUM";position:absolute;left:24px;bottom:10px;font-size:78px;font-weight:1000;letter-spacing:-.07em;color:rgba(255,255,255,.045);z-index:0}
     .hero-media img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:center 52%;filter:drop-shadow(0 28px 50px rgba(0,0,0,.42));z-index:1}
     .hero-tag{position:absolute;left:22px;top:22px;z-index:2;background:var(--green);color:#121416;border-radius:999px;padding:9px 12px;font-size:11px;font-weight:950;letter-spacing:.11em}
-    .hero-note{position:absolute;right:18px;bottom:18px;z-index:2;background:rgba(10,12,13,.82);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);padding:14px 16px;border-radius:16px;max-width:240px;font-size:12px;color:#c5cbce}
+    .hero-note{position:absolute;right:18px;bottom:18px;z-index:2;background:rgba(10,12,13,.78);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);padding:12px 14px;border-radius:14px;max-width:230px;font-size:11px;line-height:1.45;color:#c5cbce}
     .strip{border-top:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:repeat(3,1fr)}
     .strip div{padding:24px 22px;border-right:1px solid rgba(255,255,255,.12)}
     .strip div:last-child{border-right:0}.strip b{display:block;font-size:25px}.strip span{color:#858d92;font-size:12px}
@@ -59,8 +64,8 @@
     .dark .num{color:#393f43}
     h2{font-size:clamp(44px,6.4vw,88px);line-height:.92;letter-spacing:-.055em;margin:9px 0 20px}
     h3{font-size:27px;line-height:1.08;letter-spacing:-.025em}
-    .model-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
-    .model-tab{border:1px solid #c8c2b6;background:#f9f7f2;border-radius:999px;padding:11px 16px;font-weight:900;cursor:pointer}
+    .model-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;max-width:100%}
+    .model-tab{border:1px solid #c8c2b6;background:#f9f7f2;border-radius:999px;padding:11px 16px;font-weight:900;cursor:pointer;white-space:nowrap;flex:0 0 auto}
     .model-tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
     .model-stage{display:grid;grid-template-columns:.92fr 1.08fr;gap:22px;align-items:start}
     .model-gallery{min-width:0}
@@ -88,8 +93,8 @@
     .gallery-dialog-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}
     .gallery-dialog-thumbs button{padding:0;border:2px solid transparent;border-radius:10px;overflow:hidden;background:#202427;cursor:pointer;aspect-ratio:4/3}
     .gallery-dialog-thumbs button.active{border-color:var(--green)}.gallery-dialog-thumbs img{width:100%;height:100%;object-fit:cover}
-    .model-code{font-size:clamp(78px,9vw,128px);font-weight:1000;letter-spacing:-.08em;line-height:.78;color:var(--green)}
-    .model-sub{font-size:22px;font-weight:850;margin-top:18px;max-width:400px}
+    .model-code{font-size:clamp(70px,8vw,114px);font-weight:1000;letter-spacing:-.075em;line-height:.8;color:var(--green)}
+    .model-sub{font-size:20px;font-weight:850;margin-top:16px;max-width:410px;line-height:1.18}
     .model-ghost{position:absolute;left:26px;bottom:2px;font-size:118px;font-weight:1000;letter-spacing:-.08em;color:rgba(255,255,255,.035)}
     .model-chip{position:absolute;right:22px;top:22px;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 11px;font-size:11px;color:#fff;background:rgba(10,12,13,.56);backdrop-filter:blur(8px);z-index:3}
     .model-specs{background:#fff;border:1px solid var(--line);border-radius:30px;padding:28px}
@@ -98,12 +103,12 @@
     .spec span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:850}
     .spec b{display:block;margin-top:5px;font-size:21px}
     .source-link{display:inline-flex;margin-top:18px;font-size:13px;font-weight:900;text-decoration:none;border-bottom:1px solid}
-    .compare-wrap{overflow:auto;border:1px solid var(--line);border-radius:24px;background:#fff}
+    .compare-wrap{overflow:auto;border:1px solid var(--line);border-radius:24px;background:#fff;box-shadow:0 14px 40px rgba(20,22,23,.05);scrollbar-width:thin;overscroll-behavior-inline:contain}
     .compare-table{width:100%;border-collapse:collapse;min-width:1040px}
     .compare-table th,.compare-table td{padding:16px 18px;border-bottom:1px solid #e5e0d6;border-right:1px solid #ece7de;text-align:left;vertical-align:top}
     .compare-table th:last-child,.compare-table td:last-child{border-right:0}.compare-table tr:last-child td{border-bottom:0}
-    .compare-table thead th{position:sticky;top:0;background:#15181a;color:#fff;font-size:12px;letter-spacing:.05em;z-index:1}
-    .compare-table tbody th{background:#f3f0e9;font-size:14px;min-width:180px}
+    .compare-table thead th{position:sticky;top:72px;background:#15181a;color:#fff;font-size:12px;letter-spacing:.05em;z-index:3}
+    .compare-table tbody th{position:sticky;left:0;z-index:2;background:#f3f0e9;font-size:14px;min-width:180px;box-shadow:1px 0 0 #e1dbcf}
     .compare-table td{font-size:13px;color:#555c60}
     .compare-table td strong{display:block;color:#15181a;font-size:15px}
     .compare-note{margin-top:14px;font-size:12px;color:#70767a}
@@ -159,7 +164,8 @@
     .controls{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}
     .field{background:#1d2124;border:1px solid #30363a;border-radius:16px;padding:14px}
     .field label{display:block;color:#a3abb0;font-size:11px;font-weight:850;letter-spacing:.04em;margin-bottom:7px}
-    .field input,.field select{width:100%;background:#101214;border:1px solid #3b4247;color:#fff;border-radius:10px;padding:12px 13px;outline:none}
+    .field input,.field select{width:100%;background:#101214;border:1px solid #3b4247;color:#fff;border-radius:10px;padding:12px 13px;outline:none;transition:border-color .18s,box-shadow .18s}
+    .field input:focus,.field select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(201,219,0,.12)}
     .result{background:var(--green);color:#111315;border-radius:28px;padding:30px;position:sticky;top:94px}
     .result .big{font-size:60px;line-height:.88;font-weight:1000;letter-spacing:-.065em;margin:10px 0 4px}
     .result-row{display:flex;justify-content:space-between;gap:18px;padding:11px 0;border-bottom:1px solid rgba(0,0,0,.16);font-size:14px}
@@ -190,13 +196,13 @@
     .trust-side{display:grid;gap:14px}
     .trust-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px}
     .trust-card strong{display:block;font-size:28px;letter-spacing:-.04em}.trust-card p{font-size:13px;color:#666d70;margin:9px 0 0}
-    .floating-cta{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:70;width:min(760px,calc(100% - 28px));display:flex;align-items:center;gap:14px;padding:10px 12px 10px 18px;border-radius:999px;background:rgba(16,18,20,.94);backdrop-filter:blur(16px);box-shadow:0 18px 55px rgba(0,0,0,.28);color:#fff;border:1px solid rgba(255,255,255,.1)}
+    .floating-cta{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:70;width:min(760px,calc(100% - 28px));display:flex;align-items:center;gap:14px;padding:10px 12px 10px 18px;border-radius:999px;background:rgba(16,18,20,.94);backdrop-filter:blur(16px);box-shadow:0 18px 55px rgba(0,0,0,.28);color:#fff;border:1px solid rgba(255,255,255,.1)}
     .floating-copy{min-width:0;margin-right:auto}.floating-copy b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.floating-copy span{display:block;font-size:10px;color:#9da5aa;margin-top:2px}
     .floating-cta .btn{min-height:42px;padding:0 17px;font-size:12px}.floating-call{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 15px;border:1px solid #50575b;border-radius:999px;text-decoration:none;font-size:12px;font-weight:900}
     .contact{background:var(--green);padding:100px 0 130px}
     .contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:46px}
     .formbox{background:#fff;border-radius:28px;padding:30px;box-shadow:var(--shadow)}
-    .request{display:grid;gap:12px}.request input,.request textarea,.request select{width:100%;border:1px solid #cdc7bb;border-radius:12px;padding:13px;background:#fbfaf7}
+    .request{display:grid;gap:14px}.request label{font-size:12px;font-weight:800;color:#444a4d}.request input,.request textarea,.request select{width:100%;border:1px solid #cdc7bb;border-radius:12px;padding:13px;background:#fbfaf7;margin-top:6px;outline:none;transition:border-color .18s,box-shadow .18s}.request input:focus,.request textarea:focus,.request select:focus{border-color:#7f8900;box-shadow:0 0 0 3px rgba(127,137,0,.12)}
     .request textarea{min-height:120px;resize:vertical}
     .note{font-size:12px;color:#72787b}
     footer{background:#0d0f10;color:#899095;padding:30px 0;font-size:12px}
@@ -204,16 +210,31 @@
     .reveal{opacity:0;transform:translateY(18px);transition:.55s ease}.reveal.show{opacity:1;transform:none}
     @media(max-width:980px){
       .navlinks{display:none}.hero-grid,.model-stage,.tech-grid,.calc-grid,.contact-grid{grid-template-columns:1fr}
-      .hero-grid{padding-top:48px}.hero-media{min-height:440px}.strip{grid-template-columns:repeat(2,1fr)}.model-stage{grid-template-columns:1fr}.model-thumbs{grid-template-columns:repeat(4,1fr)}
-      .section-head{grid-template-columns:110px 1fr}.grid4{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:1fr 1fr}.family-grid{grid-template-columns:repeat(2,1fr)}
+      .hero-grid{padding:48px 0 40px;gap:32px}.hero-media{min-height:440px}.strip{grid-template-columns:repeat(3,1fr)}
+      .model-stage{grid-template-columns:1fr}.model-thumbs{grid-template-columns:repeat(4,1fr)}
+      .section{padding:86px 0}.section-head{grid-template-columns:96px 1fr;gap:20px}.num{font-size:78px}
+      .grid4{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:1fr 1fr}.family-grid{grid-template-columns:repeat(2,1fr)}
       .result{position:static}.selector-grid{grid-template-columns:1fr}.mass-visual{grid-template-columns:1fr}.trust-grid{grid-template-columns:1fr}.config-grid{grid-template-columns:1fr}
+      .compare-table thead th{top:64px}
     }
     @media(max-width:640px){
-      .wrap{width:min(var(--max),calc(100% - 24px))}.nav{height:64px}.navphone{display:none}.btn.navcta{display:none}
-      .hero-grid{min-height:auto;gap:28px}.hero-media{min-height:300px}.hero-media img{width:100%;height:100%;right:auto;object-position:center 55%}.strip,.grid2,.grid3,.grid4,.controls,.cargo-grid,.tech-stack,.spec-grid{grid-template-columns:1fr}
-      .strip div{border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}.section{padding:76px 0}.section-head{grid-template-columns:1fr}.num{font-size:54px}.family-grid{grid-template-columns:1fr}.family-photo{height:190px}
-      h2{font-size:48px}.trust-points{grid-template-columns:1fr}.config-options{grid-template-columns:1fr}.floating-cta{bottom:10px;border-radius:20px;padding:9px 10px}.floating-copy span{display:none}.floating-call{padding:0 12px}.floating-cta .btn{padding:0 14px}.lead{font-size:17px}.selector-models{grid-template-columns:1fr}.model-decision{grid-template-columns:1fr}.gallery-dialog-thumbs{grid-template-columns:repeat(2,1fr)}.mass-scale-row{grid-template-columns:1fr}.mass-scale-row b{text-align:left}.mass-delta strong{font-size:58px}.model-visual{min-height:350px}.model-thumbs{grid-template-columns:repeat(2,1fr)}.metric{font-size:48px}.result .big{font-size:47px}
+      .wrap{width:min(var(--max),calc(100% - 24px))}.nav{height:64px;gap:12px}.brand{font-size:13px}.brand-mark{width:30px;height:30px;border-width:6px}.navphone{display:none}.btn.navcta{display:none}
+      .hero-grid{min-height:auto;gap:24px;padding:38px 0 30px}.hero-title{font-size:34px;line-height:1}.hero .lead{margin-top:18px}.hero-media{min-height:290px;border-radius:22px}.hero-media img{width:100%;height:100%;right:auto;object-position:center 55%}.hero-note{right:10px;bottom:10px;max-width:190px;padding:9px 10px;font-size:10px}.hero-tag{left:12px;top:12px}
+      .strip,.grid2,.grid3,.grid4,.controls,.cargo-grid,.tech-stack,.spec-grid{grid-template-columns:1fr}.strip div{border-right:0;border-bottom:1px solid rgba(255,255,255,.1);padding:17px 12px}.strip b{font-size:22px}
+      .section{padding:64px 0}.selector-section{padding:62px 0}.section-head{grid-template-columns:1fr;gap:12px;margin-bottom:30px}.num{font-size:48px}.family-grid{grid-template-columns:1fr}.family-photo{height:190px}
+      h1{font-size:clamp(68px,25vw,104px);margin:12px 0 22px}h2{font-size:clamp(38px,12vw,50px);line-height:.96}.lead{font-size:16px}.kicker{font-size:10px}
+      .model-tabs{flex-wrap:nowrap;overflow-x:auto;padding:3px 3px 10px;margin-left:-3px;margin-right:-3px;scrollbar-width:none}.model-tabs::-webkit-scrollbar{display:none}.model-tab{padding:10px 14px}
+      .model-visual{min-height:330px;border-radius:22px;padding:22px}.model-code{font-size:clamp(64px,21vw,88px)}.model-sub{font-size:17px}.model-chip{right:12px;top:12px;font-size:10px}.model-thumbs{grid-template-columns:repeat(4,1fr);gap:7px}.model-thumb{border-radius:10px}.model-specs{padding:20px;border-radius:22px}.spec{padding:13px}.spec b{font-size:18px}
+      .trust-points{grid-template-columns:1fr}.config-options{grid-template-columns:1fr}.selector-models{grid-template-columns:1fr}.model-decision{grid-template-columns:1fr}.gallery-dialog-thumbs{grid-template-columns:repeat(2,1fr)}.mass-scale-row{grid-template-columns:1fr}.mass-scale-row b{text-align:left}.mass-delta strong{font-size:54px}.metric{font-size:44px}.result .big{font-size:44px}
+      .compare-wrap{border-radius:18px}.compare-table{min-width:920px}.compare-table th,.compare-table td{padding:13px 14px}.compare-table thead th{top:64px}.compare-note:before{content:"← таблицу можно прокручивать →";display:block;font-weight:900;color:#34393c;margin-bottom:6px}
+      .floating-cta{bottom:max(8px,env(safe-area-inset-bottom));border-radius:18px;padding:8px;gap:8px}.floating-copy{display:none}.floating-call{min-height:40px;padding:0 12px;font-size:11px}.floating-cta .btn{min-height:40px;padding:0 13px;font-size:11px;flex:1}
+      .formbox{padding:22px;border-radius:22px}.contact{padding:72px 0 104px}
     }
+    @media(max-width:390px){
+      .floating-call{display:none}.floating-cta{width:calc(100% - 20px)}.floating-cta .btn{width:100%}
+      .model-thumbs{grid-template-columns:repeat(2,1fr)}.hero-note{display:none}.hero-media{min-height:250px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.btn{transition:none}}
   </style>
 </head>
 <body>
@@ -221,7 +242,7 @@
   <div class="wrap nav">
     <a class="brand" href="#top"><span class="brand-mark"></span><span>СПЕЦАВТОТЕХНИКА<small>SAT500 / ALUMINIUM LINE</small></span></a>
     <nav class="navlinks" aria-label="Навигация">
-      <a href="#models">Модели</a><a href="#why">Экономика</a><a href="#tech">Техника</a><a href="#family">Линейка</a><a href="#calc">Калькулятор</a>
+      <a href="#selector">Подбор</a><a href="#models">SAT500</a><a href="#compare">Сравнение</a><a href="#tech">Техника</a><a href="#calc">Калькулятор</a>
     </nav>
     <a class="navphone" href="tel:+79517107100">+7 (951) 710-710-0</a>
     <a class="btn navcta" href="#contact">Запросить КП</a>
@@ -556,9 +577,9 @@
     </div>
     <div class="formbox">
       <form class="request" id="requestForm">
-        <label>Модель<select id="requestModel"><option>SAT500 / 3 оси</option><option>SAT500 / 4 оси</option><option>SAT500 / вынесенная ось</option><option>SAT510</option><option>SAT515</option><option>SAT545</option><option>SAT550</option></select></label>
-        <label>Компания / имя<input id="requestName" autocomplete="name"></label>
-        <label>Телефон или email<input id="requestReply"></label>
+        <label>Модель<select id="requestModel"><option>SAT500 / 3 оси</option><option>SAT500 / 4 оси</option><option>SAT500 / вынесенная ось</option><option>SAT510</option><option>SAT510 / вынесенная ось</option><option>SAT515</option><option>SAT545</option><option>SAT550</option></select></label>
+        <label>Компания / имя<input id="requestName" autocomplete="organization"></label>
+        <label>Телефон или email<input id="requestReply" autocomplete="email" inputmode="email"></label>
         <label>Задача<textarea id="requestText" placeholder="Груз, плотность, рейсов в день, маршрут, ограничения, желаемая комплектация"></textarea></label>
         <button class="btn dark" type="submit">Скопировать запрос менеджеру</button>
         <div class="note" id="formStatus">Форма ничего не отправляет: она формирует готовый текст запроса в буфере обмена.</div>
@@ -706,7 +727,7 @@
   document.getElementById('configToRequest').addEventListener('click',()=>{
     const model=document.getElementById('configModel').value;
     const req=document.getElementById('requestModel');
-    [...req.options].forEach(o=>{if(o.textContent===model||model.startsWith(o.textContent))req.value=o.value});
+    [...req.options].forEach(o=>{if(o.textContent===model)req.value=o.value});
     const prev=document.getElementById('requestText').value.trim();
     document.getElementById('requestText').value=(prev?prev+'\n\n':'')+'Комплектация: '+configText()+'.';
     document.getElementById('contact').scrollIntoView({behavior:'smooth'});
@@ -741,14 +762,16 @@
   document.getElementById('baselineMass').addEventListener('input',syncModelMass);
   document.getElementById('sendCalc').addEventListener('click',()=>{
     const modelName=document.getElementById('calcModel').selectedOptions[0].textContent.split(' — ')[0];
-    document.getElementById('requestModel').value=modelName.includes('SAT500 / 3')?'SAT500 / 3 оси':modelName.includes('SAT500 / 4')?'SAT500 / 4 оси':modelName.includes('SAT500 / вынесенная')?'SAT500 / вынесенная ось':modelName.startsWith('SAT510')?'SAT510':modelName.startsWith('SAT515')?'SAT515':modelName.startsWith('SAT545')?'SAT545':'SAT550';
+    document.getElementById('requestModel').value=modelName.includes('SAT500 / 3')?'SAT500 / 3 оси':modelName.includes('SAT500 / 4')?'SAT500 / 4 оси':modelName.includes('SAT500 / вынесенная')?'SAT500 / вынесенная ось':modelName.includes('SAT510 / вынесенная')?'SAT510 / вынесенная ось':modelName.startsWith('SAT510')?'SAT510':modelName.startsWith('SAT515')?'SAT515':modelName.startsWith('SAT545')?'SAT545':'SAT550';
     document.getElementById('requestText').value='Расчёт: '+modelName+'. Разница массы: '+document.getElementById('extra').value+' т; загруженных рейсов/день: '+document.getElementById('trips').value+'; дней/год: '+document.getElementById('days').value+'; дополнительный поток: '+document.getElementById('annual').textContent+'/год; срок возврата разницы цены: '+document.getElementById('payback').textContent+'.';
     document.getElementById('contact').scrollIntoView({behavior:'smooth'});
   });
   syncModelMass();
 
-  const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.1});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target)}}),{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  }else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));}
 
   document.getElementById('requestForm').addEventListener('submit',async e=>{
     e.preventDefault();
