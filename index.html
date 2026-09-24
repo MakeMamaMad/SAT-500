@@ -117,6 +117,13 @@
     .metric{font-size:58px;line-height:.9;font-weight:1000;letter-spacing:-.06em}
     .metric small{font-size:.33em;letter-spacing:0}
     .muted{color:var(--muted)}.dark .muted,.black .muted{color:#a7afb4}
+    .mass-visual{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;margin-bottom:20px}
+    .mass-scale{background:#202427;border:1px solid #30363a;border-radius:24px;padding:26px}
+    .mass-scale-row{display:grid;grid-template-columns:150px 1fr 72px;gap:14px;align-items:center;margin-top:18px}
+    .mass-scale-row span{font-size:12px;color:#afb6ba}.mass-scale-row b{text-align:right;font-size:20px}
+    .mass-scale-track{height:30px;border-radius:8px;background:#30363a;overflow:hidden}.mass-scale-fill{height:100%;background:#697176}.mass-scale-fill.sat{background:var(--green)}
+    .mass-delta{background:var(--green);color:#111315;border-radius:24px;padding:28px;display:flex;flex-direction:column;justify-content:center}
+    .mass-delta strong{font-size:74px;line-height:.9;letter-spacing:-.07em}.mass-delta span{font-weight:900;margin-top:10px}.mass-delta p{font-size:13px;margin:12px 0 0}
     .bars{display:grid;gap:18px;margin-top:24px}
     .bar label{display:flex;justify-content:space-between;font-size:13px;font-weight:850}
     .track{height:16px;border-radius:999px;background:#2a2f32;overflow:hidden;margin-top:7px}.track.light{background:#ebe7dd}
@@ -174,13 +181,13 @@
       .navlinks{display:none}.hero-grid,.model-stage,.tech-grid,.calc-grid,.contact-grid{grid-template-columns:1fr}
       .hero-grid{padding-top:48px}.hero-media{min-height:440px}.strip{grid-template-columns:repeat(2,1fr)}.model-stage{grid-template-columns:1fr}.model-thumbs{grid-template-columns:repeat(4,1fr)}
       .section-head{grid-template-columns:110px 1fr}.grid4{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:1fr 1fr}.family-grid{grid-template-columns:repeat(2,1fr)}
-      .result{position:static}.selector-grid{grid-template-columns:1fr}
+      .result{position:static}.selector-grid{grid-template-columns:1fr}.mass-visual{grid-template-columns:1fr}
     }
     @media(max-width:640px){
       .wrap{width:min(var(--max),calc(100% - 24px))}.nav{height:64px}.navphone{display:none}.btn.navcta{display:none}
       .hero-grid{min-height:auto;gap:28px}.hero-media{min-height:300px}.hero-media img{width:100%;height:100%;right:auto;object-position:center 55%}.strip,.grid2,.grid3,.grid4,.controls,.cargo-grid,.tech-stack,.spec-grid{grid-template-columns:1fr}
       .strip div{border-right:0;border-bottom:1px solid rgba(255,255,255,.1)}.section{padding:76px 0}.section-head{grid-template-columns:1fr}.num{font-size:54px}.family-grid{grid-template-columns:1fr}.family-photo{height:190px}
-      h2{font-size:48px}.lead{font-size:17px}.selector-models{grid-template-columns:1fr}.model-decision{grid-template-columns:1fr}.gallery-dialog-thumbs{grid-template-columns:repeat(2,1fr)}.model-visual{min-height:350px}.model-thumbs{grid-template-columns:repeat(2,1fr)}.metric{font-size:48px}.result .big{font-size:47px}
+      h2{font-size:48px}.lead{font-size:17px}.selector-models{grid-template-columns:1fr}.model-decision{grid-template-columns:1fr}.gallery-dialog-thumbs{grid-template-columns:repeat(2,1fr)}.mass-scale-row{grid-template-columns:1fr}.mass-scale-row b{text-align:left}.mass-delta strong{font-size:58px}.model-visual{min-height:350px}.model-thumbs{grid-template-columns:repeat(2,1fr)}.metric{font-size:48px}.result .big{font-size:47px}
     }
   </style>
 </head>
@@ -321,6 +328,15 @@
     <div class="section-head reveal">
       <div class="num">02</div>
       <div><div class="kicker">Экономика массы</div><h2>Не возить собственный вес вместо груза.</h2><p class="lead" style="color:#a8b0b4">Алюминиевый кузов имеет смысл там, где маршрут регулярно ограничен массой и есть оплачиваемый груз. Разницу нужно считать на вашей связке тягач + полуприцеп + маршрут.</p></div>
+    </div>
+    <div class="mass-visual reveal">
+      <div class="mass-scale">
+        <div class="kicker" style="color:var(--green)">Один и тот же маршрут / пример собственной массы</div>
+        <div class="mass-scale-row"><span>Стальной сценарий</span><div class="mass-scale-track"><div class="mass-scale-fill" style="width:100%"></div></div><b>9,6 т</b></div>
+        <div class="mass-scale-row"><span>SAT500 · 3 оси</span><div class="mass-scale-track"><div class="mass-scale-fill sat" style="width:69.8%"></div></div><b>6,7 т</b></div>
+        <p class="muted" style="font-size:12px;margin-top:18px">9,6 т — вводное значение сравниваемого полуприцепа. 6,7 т — нижняя граница, указанная для 3-осного SAT500. Сравнивать нужно сопоставимые комплектации.</p>
+      </div>
+      <div class="mass-delta"><div class="kicker" style="color:#596000">Разница в сценарии</div><strong>2,9 т</strong><span>потенциально доступной массы под груз</span><p>Только если маршрут ограничен массой, есть дополнительный груз и соблюдены осевые ограничения.</p></div>
     </div>
     <div class="grid2 reveal">
       <article class="card black">
