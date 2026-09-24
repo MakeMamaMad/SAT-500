@@ -435,8 +435,9 @@
     </div>
     <div class="calc-grid">
       <div class="controls">
-        <div class="field"><label for="preset">Пресет модели</label><select id="preset"><option value="1.7">SAT500 / пример 7,9 т против 9,6 т</option><option value="2.9">SAT500 / пример 6,7 т против 9,6 т</option><option value="0">Своя разница массы</option></select></div>
-        <div class="field"><label for="extra">Разница массы / доп. груз, т</label><input id="extra" type="number" min="0" step=".1" value="1.7"></div>
+        <div class="field"><label for="calcModel">Модель SAT</label><select id="calcModel"><option value="6.7">SAT500 / 3 оси — от 6,7 т</option><option value="7.9" selected>SAT500 / 4 оси — от 7,9 т</option><option value="7.9">SAT500 / вынесенная ось — от 7,9 т</option><option value="7.5">SAT510 — от 7,5 т</option><option value="7.9">SAT510 / вынесенная ось — от 7,9 т</option><option value="8.4">SAT515 — 8,4 т</option><option value="8.9">SAT545 — 8,9 т ±3%</option><option value="8.5">SAT550 — 8,5 т</option></select></div>
+        <div class="field"><label for="baselineMass">Масса сравниваемого полуприцепа, т</label><input id="baselineMass" type="number" min="0" step=".1" value="9.6"></div>
+        <div class="field"><label for="extra">Расчётная разница массы / доп. груз, т</label><input id="extra" type="number" min="0" step=".1" value="1.7"></div>
         <div class="field"><label for="trips">Загруженных рейсов в день</label><input id="trips" type="number" min="0" step=".1" value="3"></div>
         <div class="field"><label for="days">Рабочих дней в год</label><input id="days" type="number" min="0" max="365" value="300"></div>
         <div class="field"><label for="rate">Тариф за доп. тонну, ₽</label><input id="rate" type="number" min="0" value="500"></div>
@@ -457,7 +458,8 @@
         <div class="result-row"><span>Простои / год</span><b id="downResult">0 ₽</b></div>
         <div class="result-row"><span>Итого / год</span><b id="annual">0 ₽</b></div>
         <div class="payback"><span>Простой срок возврата разницы цены</span><strong id="payback">—</strong></div>
-        <p class="note" style="color:#555c00;margin-top:16px">Без налогов, кредита/лизинга, дисконтирования, сезонности и остаточной стоимости.</p>
+        <p class="note" style="color:#555c00;margin-top:16px">Масса модели подставляется из публичной карточки. Сравниваемую массу можно изменить. Разница массы — сценарий доступного дополнительного груза, а не гарантия загрузки.</p>
+        <button class="btn dark" id="sendCalc" type="button" style="width:100%;margin-top:14px">Передать этот расчёт в заявку →</button>
       </aside>
     </div>
   </div>
@@ -606,7 +608,7 @@
   }));
   renderModel(models.sat3);
 
-  const ids=['extra','trips','days','rate','cost','delta','returns','returnmargin','saved','daycash'];
+  const ids=['extra','trips','days','rate','cost','delta','returns','returnmargin','saved','daycash','baselineMass'];
   const val=id=>{const n=parseFloat(document.getElementById(id).value);return Number.isFinite(n)?n:0};
   const money=n=>Math.round(n).toLocaleString('ru-RU')+' ₽';
   function calc(){
@@ -624,12 +626,21 @@
     document.getElementById('payback').textContent=annual>0?(val('delta')/(annual/12)).toFixed(1).replace('.',',')+' мес.':'—';
   }
   ids.forEach(id=>document.getElementById(id).addEventListener('input',calc));
-  document.getElementById('preset').addEventListener('change',e=>{
-    const v=parseFloat(e.target.value);
-    if(Number.isFinite(v)&&v>0) document.getElementById('extra').value=v;
+  function syncModelMass(){
+    const modelMass=parseFloat(document.getElementById('calcModel').value)||0;
+    const baseline=val('baselineMass');
+    document.getElementById('extra').value=Math.max(0,baseline-modelMass).toFixed(1);
     calc();
+  }
+  document.getElementById('calcModel').addEventListener('change',syncModelMass);
+  document.getElementById('baselineMass').addEventListener('input',syncModelMass);
+  document.getElementById('sendCalc').addEventListener('click',()=>{
+    const modelName=document.getElementById('calcModel').selectedOptions[0].textContent.split(' — ')[0];
+    document.getElementById('requestModel').value=modelName.includes('SAT500 / 3')?'SAT500 / 3 оси':modelName.includes('SAT500 / 4')?'SAT500 / 4 оси':modelName.includes('SAT500 / вынесенная')?'SAT500 / вынесенная ось':modelName.startsWith('SAT510')?'SAT510':modelName.startsWith('SAT515')?'SAT515':modelName.startsWith('SAT545')?'SAT545':'SAT550';
+    document.getElementById('requestText').value='Расчёт: '+modelName+'. Разница массы: '+document.getElementById('extra').value+' т; загруженных рейсов/день: '+document.getElementById('trips').value+'; дней/год: '+document.getElementById('days').value+'; дополнительный поток: '+document.getElementById('annual').textContent+'/год; срок возврата разницы цены: '+document.getElementById('payback').textContent+'.';
+    document.getElementById('contact').scrollIntoView({behavior:'smooth'});
   });
-  calc();
+  syncModelMass();
 
   const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.1});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
