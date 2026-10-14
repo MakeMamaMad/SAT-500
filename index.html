@@ -238,6 +238,15 @@
       .model-thumbs{grid-template-columns:repeat(2,1fr)}.hero-note{display:none}.hero-media{min-height:250px}
     }
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.btn{transition:none}}
+    /* SAT Test Drive cross-promotion */
+    .testdrive-promo{padding:26px 0;background:#d0e000}
+    .testdrive-promo__inner{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:28px;background:#111416;color:#fff;border-radius:24px;padding:30px 36px}
+    .testdrive-promo__label{display:block;color:#d0e000;font-size:11px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px}
+    .testdrive-promo h2{font-size:clamp(26px,3.2vw,44px);letter-spacing:-.045em;line-height:1.1;margin:0 0 10px;color:#fff}
+    .testdrive-promo p{margin:0;color:#ccd2d4;max-width:680px;font-size:15px;line-height:1.55}
+    .testdrive-promo__link{display:inline-flex;align-items:center;justify-content:center;text-align:center;padding:16px 22px;min-height:52px;background:#d0e000;color:#111416;text-decoration:none;font-weight:900;border-radius:999px;white-space:nowrap}
+    .testdrive-promo__link:hover{background:#e2ef57}
+    @media(max-width:700px){.testdrive-promo{padding:16px 0}.testdrive-promo__inner{grid-template-columns:1fr;padding:24px 22px;gap:20px}.testdrive-promo__link{width:100%;white-space:normal}}
   </style>
 </head>
 <body>
@@ -274,6 +283,17 @@
       <div><b>до 55 м³</b><span>объём кузова SAT500 в 4-осных исполнениях</span></div>
       <div><b>3 / 4 оси</b><span>классическая и вынесенная осевая схема</span></div>
     </div>
+  </div>
+</section>
+
+<section class="testdrive-promo" aria-label="Запись на тест-драйв SAT">
+  <div class="wrap testdrive-promo__inner">
+    <div>
+      <span class="testdrive-promo__label">Спецпроект · SAT Test Drive</span>
+      <h2>Попробуйте SAT-500 и SAT-545 в деле</h2>
+      <p>Выберите модель и количество осей, запишитесь на тест-драйв и следите за своим местом в электронной очереди.</p>
+    </div>
+    <a class="testdrive-promo__link" href="https://pricepvtest.online/?utm_source=propricep.site&amp;utm_medium=promo&amp;utm_campaign=sat_test_drive" target="_blank" rel="noopener noreferrer">Записаться на тест-драйв ↗</a>
   </div>
 </section>
 
