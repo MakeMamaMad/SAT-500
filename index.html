@@ -599,13 +599,17 @@
       <p><b>РФ:</b> <a href="tel:+79517107100">+7 (951) 710-710-0</a><br><b>РБ:</b> <a href="tel:+375296520045">+375 (29) 652-00-45</a><br><b>Email:</b> <a href="mailto:info@satpricep.by">info@satpricep.by</a></p>
     </div>
     <div class="formbox">
-      <form class="request" id="requestForm">
-        <label>Модель<select id="requestModel"><option>SAT500 / 3 оси</option><option>SAT500 / 4 оси</option><option>SAT500 / вынесенная ось</option><option>SAT510</option><option>SAT510 / вынесенная ось</option><option>SAT515</option><option>SAT545</option><option>SAT550</option></select></label>
-        <label>Компания / имя<input id="requestName" autocomplete="organization"></label>
-        <label>Телефон или email<input id="requestReply" autocomplete="email" inputmode="email"></label>
-        <label>Задача<textarea id="requestText" placeholder="Груз, плотность, рейсов в день, маршрут, ограничения, желаемая комплектация"></textarea></label>
-        <button class="btn dark" type="submit">Скопировать запрос менеджеру</button>
-        <div class="note" id="formStatus">Форма ничего не отправляет: она формирует готовый текст запроса в буфере обмена.</div>
+      <form class="request" id="requestForm" action="https://formsubmit.co/info@satpricep.by" method="POST">
+        <input type="hidden" name="_subject" value="Новая заявка на КП — SAT">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_url" value="https://www.propricep.site/#contact">
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0">
+        <label>Модель<select id="requestModel" name="Модель"><option>SAT500 / 3 оси</option><option>SAT500 / 4 оси</option><option>SAT500 / вынесенная ось</option><option>SAT510</option><option>SAT510 / вынесенная ось</option><option>SAT515</option><option>SAT545</option><option>SAT550</option></select></label>
+        <label>Компания / имя<input id="requestName" name="Компания / имя" autocomplete="organization" required maxlength="160"></label>
+        <label>Телефон или email<input id="requestReply" name="Телефон или email" autocomplete="on" required maxlength="160"></label>
+        <label>Задача<textarea id="requestText" name="Задача" maxlength="3000" placeholder="Груз, плотность, рейсов в день, маршрут, ограничения, желаемая комплектация"></textarea></label>
+        <button class="btn dark" type="submit" id="requestSubmit">Отправить запрос на КП</button>
+        <div class="note" id="formStatus" role="status" aria-live="polite">Заявка будет направлена на info@satpricep.by через сервис FormSubmit.</div>
       </form>
     </div>
   </div>
@@ -798,9 +802,32 @@
 
   document.getElementById('requestForm').addEventListener('submit',async e=>{
     e.preventDefault();
-    const text='Запрос по SAT\nМодель: '+document.getElementById('requestModel').value+'\nКомпания / имя: '+document.getElementById('requestName').value+'\nКонтакт: '+document.getElementById('requestReply').value+'\nЗадача: '+document.getElementById('requestText').value+'\n\nРасчёт на странице: '+document.getElementById('annual').textContent+' дополнительного потока в год; простой срок возврата: '+document.getElementById('payback').textContent+'.';
-    try{await navigator.clipboard.writeText(text);document.getElementById('formStatus').textContent='Готово: текст запроса скопирован в буфер обмена.'}
-    catch(err){document.getElementById('formStatus').textContent=text}
+    const form=e.currentTarget;
+    const status=document.getElementById('formStatus');
+    const button=document.getElementById('requestSubmit');
+    if(!form.reportValidity())return;
+    if(form.elements['_honey'].value)return;
+    const payload=new FormData(form);
+    payload.append('Расчёт на странице',document.getElementById('annual').textContent+' дополнительного потока в год; простой срок возврата: '+document.getElementById('payback').textContent);
+    button.disabled=true;
+    button.textContent='Отправляем…';
+    status.textContent='Отправляем запрос…';
+    try{
+      const response=await fetch('https://formsubmit.co/ajax/info@satpricep.by',{
+        method:'POST',
+        headers:{'Accept':'application/json'},
+        body:payload
+      });
+      const data=await response.json();
+      if(!response.ok || !(data.success===true || data.success==='true'))throw new Error(data.message||'Сервис не подтвердил приём заявки');
+      status.textContent='Запрос принят сервисом отправки. Менеджер получит письмо после активации адреса получателя в FormSubmit.';
+      form.reset();
+    }catch(err){
+      status.textContent='Не удалось отправить заявку. Попробуйте ещё раз или напишите напрямую на info@satpricep.by.';
+    }finally{
+      button.disabled=false;
+      button.textContent='Отправить запрос на КП';
+    }
   });
 })();
 </script>
